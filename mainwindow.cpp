@@ -37,6 +37,7 @@ void MainWindow::on_browsefolderButton_clicked()
 void MainWindow::on_foldergenButton_clicked(){
 
     folderHistory getHistory(currentContents_, "C:\\Users\\Mom-TV\\Desktop\\test.txt");
+
     getHistory.readHistory();
     QStringList currentList = getHistory.compareNewOld();
     folderRandomizer getRandomFolders;

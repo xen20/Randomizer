@@ -1,4 +1,4 @@
-#include "folderRandomizer.h"
+#include "folderrandomizer.h"
 
 folderRandomizer::folderRandomizer()
 {
@@ -33,6 +33,7 @@ QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList 
             }
         }
         return randomlySelectedFolders;
+
         randomlySelectedFolders.clear();
     }
 }
