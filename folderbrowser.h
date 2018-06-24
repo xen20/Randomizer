@@ -13,8 +13,7 @@ public:
     QString browseFolder();
     QString getHomefolder();
     QString getDocumentsfolder();
-    QStringList folderContents(QString folder_);
-    QStringList folderContentsWithSubdirectories(QString folder_);
+    QStringList folderContents(QString folder, bool recursiveOrNot, bool absoluteOrNot);
 private:
     QString folder;
 };

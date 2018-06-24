@@ -1,4 +1,4 @@
-1) Revise output file to a generic location instead of "mom-PC" or anything like that.
+1) Move all procedures to one "mega-task", that will update all necessary values each time.
 2) Revise the fonts into portable fonts
 3) Make installer/package version of program with all dependencies, etc
-
+4) Investigate performance optimization.

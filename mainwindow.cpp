@@ -9,7 +9,7 @@
 #include <QApplication>
 #include <QFileDialog>
 #include <QTextEdit>
-
+#include <QCheckBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,7 +35,7 @@ void MainWindow::on_browsefolderButton_clicked()
 
     if (browseFunctionFirstCall == 0){
         //defaults the selected object type to Directory on first press of browse button
-        currentContents = browseFolder.folderContents(selectedDirectory);
+        currentContents = browseFolder.folderContents(selectedDirectory, true,true);
         ++browseFunctionFirstCall;
     }
 
@@ -78,7 +78,7 @@ void MainWindow::on_spinBox_valueChanged(int value){
 void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
     if(arg1 == "Directories"){
         folderBrowser browseFolder;
-        currentContents = browseFolder.folderContents(selectedDirectory);
+        currentContents = browseFolder.folderContents(selectedDirectory, recursiveOrNot, true);
     }
     else if(arg1 == "Videos"){
         fileBrowser browseFile;
@@ -86,5 +86,14 @@ void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
     }
     else if(arg1 == "Music"){
         //todo
+    }
+}
+
+void MainWindow::on_subdirectoriesCheckBox_stateChanged(int arg1){
+    if(ui->subdirectoriesCheckBox->isChecked()){
+        recursiveOrNot = true;
+    }
+    else{
+        recursiveOrNot = false;
     }
 }
