@@ -5,15 +5,16 @@
 #include <QDir>
 #include <QStringList>
 
-class Folderbrowser
+class folderBrowser
 {
 public:
-    Folderbrowser();
-    ~Folderbrowser();
+    folderBrowser();
+    ~folderBrowser();
     QString browseFolder();
     QString getHomefolder();
-    QString getLastfolder();
+    QString getDocumentsfolder();
     QStringList folderContents(QString folder_);
+    QStringList folderContentsWithSubdirectories(QString folder_);
 private:
     QString folder;
 };

@@ -6,19 +6,19 @@
 class folderHistory
 {
 public:
-    folderHistory(QStringList currentObjects, QString folderPath);
-    folderHistory(QString folderPath);
+    folderHistory(QStringList currentObjects);
+    folderHistory();
     ~folderHistory();
     void readHistory();
     void writeHistory(QStringList randomlyGeneratedFolders);
     void clearHistory();
-    QStringList compareNewOld();
+    QStringList compareNewAndOldFolders();
 private:
     QStringList folderContents;
     QStringList oldFolders;
     QStringList newFolders;
     QString currentLine;
-    QString folderPath_;
+    QString resultFilePath;
 };
 
 #endif // FOLDERHISTORY_H

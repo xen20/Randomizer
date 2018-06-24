@@ -1,30 +1,37 @@
 #include "folderbrowser.h"
-#include <QString>
 #include <QStringList>
 #include <QStandardPaths>
 #include <QDir>
+#include <QDirIterator>
 
-Folderbrowser::Folderbrowser(){
+folderBrowser::folderBrowser(){
     //ctor
 }
 
-Folderbrowser::~Folderbrowser(){
+folderBrowser::~folderBrowser(){
     //dtor
 }
 
-QString Folderbrowser::getHomefolder(){
+QString folderBrowser::getHomefolder(){
     folder = QStandardPaths::locate(QStandardPaths::HomeLocation,
                   QString(), QStandardPaths::LocateDirectory);
     return folder;
 }
 
-QString Folderbrowser::getLastfolder(){
-    return folder;
+QString folderBrowser::getDocumentsfolder(){
+    QString docFolder = QStandardPaths::locate(QStandardPaths::HomeLocation,
+                  QString(), QStandardPaths::LocateDirectory);
+    return docFolder;
 }
 
-QStringList Folderbrowser::folderContents(QString folder_){
+QStringList folderBrowser::folderContents(QString folder_){
     QDir path = QDir(folder_);
-    path.setFilter(QDir::Dirs);
+    path.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 
     return path.entryList();
+}
+
+QStringList folderBrowser::folderContentsWithSubdirectories(QString folder_){
+    QDir path = QDir(folder_);
+    path.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 }

@@ -1,16 +1,22 @@
 #include "folderhistory.h"
+#include "folderbrowser.h"
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
 #include <QIODevice>
+#include <QStandardPaths>
 
-folderHistory::folderHistory(QStringList folderContents, QString folderPath){
+folderHistory::folderHistory(QStringList folderContents){
     newFolders = folderContents;
-    folderPath_ = folderPath;
+    folderBrowser browseDir;
+    resultFilePath = browseDir.getDocumentsfolder();
+    QString finalPath = resultFilePath.append("test.txt");
 }
 
-folderHistory::folderHistory(QString folderPath){
-    folderPath_= folderPath;
+folderHistory::folderHistory(){
+    folderBrowser browseDir;
+    resultFilePath = browseDir.getDocumentsfolder();
+    QString finalPath = resultFilePath.append("test.txt");
 }
 
 folderHistory::~folderHistory(){
@@ -18,7 +24,7 @@ folderHistory::~folderHistory(){
 }
 
 void folderHistory::readHistory(){
-    QFile filehandle(folderPath_);
+    QFile filehandle(resultFilePath);
     filehandle.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream filestream(&filehandle);
 
@@ -30,7 +36,7 @@ void folderHistory::readHistory(){
 }
 
 void folderHistory::writeHistory(QStringList randomlyGeneratedFolders){
-    QFile filehandle(folderPath_);
+    QFile filehandle(resultFilePath);
     filehandle.open(QIODevice::Append | QIODevice::Text);
     QTextStream filestream(&filehandle);
     QStringList::const_iterator iter;
@@ -41,7 +47,7 @@ void folderHistory::writeHistory(QStringList randomlyGeneratedFolders){
     filehandle.close();
 }
 
-QStringList folderHistory::compareNewOld(){
+QStringList folderHistory::compareNewAndOldFolders(){
     int index = 0;
     while((oldFolders.size() > 0) && (index < oldFolders.size())){
         if(newFolders.contains(oldFolders[index])){
@@ -57,7 +63,7 @@ QStringList folderHistory::compareNewOld(){
 }
 
 void folderHistory::clearHistory(){
-    QFile filehandle(folderPath_);
+    QFile filehandle(resultFilePath);
     filehandle.open(QIODevice::WriteOnly | QIODevice::Truncate);
     filehandle.close();
 }

@@ -3,10 +3,12 @@
 #include "folderbrowser.h"
 #include "folderhistory.h"
 #include "folderrandomizer.h"
+#include "filebrowser.h"
 #include <QString>
 #include <QStringList>
 #include <QApplication>
 #include <QFileDialog>
+#include <QTextEdit>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,23 +25,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_browsefolderButton_clicked()
 {
-    Folderbrowser browse;
-    QString home = browse.getHomefolder(); //starts browsing off at home
-    QString selectedDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"), home,
-                                                      QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks); //selects our directory
+    folderBrowser browseFolder;
+    static int    browseFunctionFirstCall = 0;
+    QString home = browseFolder.getHomefolder();
 
-    QStringList currentContents = browse.folderContents(selectedDirectory);
-    currentContents_ = currentContents;
+    selectedDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"), home,
+                                                      QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+
+    if (browseFunctionFirstCall == 0){
+        //defaults the selected object type to Directory on first press of browse button
+        currentContents = browseFolder.folderContents(selectedDirectory);
+        ++browseFunctionFirstCall;
+    }
+
     ui->selectedFolder->setText(selectedDirectory);
 }
 
 void MainWindow::on_foldergenButton_clicked(){
 
-    folderHistory getHistory(currentContents_, "C:\\Users\\Mom-TV\\Desktop\\test.txt");
+    folderHistory getHistory(currentContents);
 
     getHistory.readHistory();
-    QStringList currentList = getHistory.compareNewOld();
+    QStringList currentList = getHistory.compareNewAndOldFolders();
     folderRandomizer getRandomFolders;
 
     QStringList randFolder = getRandomFolders.returnRandomObjects(folderCount,currentList);
@@ -52,8 +60,10 @@ void MainWindow::on_foldergenButton_clicked(){
 }
 
 void MainWindow::on_clearFolderHistory_clicked(){
-    folderHistory clearHistory("C:\\Users\\Mom-TV\\Desktop\\test.txt");
+    folderHistory clearHistory;
     clearHistory.clearHistory();
+
+    ui->selectedObjects->clear();
 }
 
 void MainWindow::on_exitButton_released()
@@ -63,4 +73,18 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_spinBox_valueChanged(int value){
     folderCount = value;
+}
+
+void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
+    if(arg1 == "Directories"){
+        folderBrowser browseFolder;
+        currentContents = browseFolder.folderContents(selectedDirectory);
+    }
+    else if(arg1 == "Videos"){
+        fileBrowser browseFile;
+        currentContents = browseFile.getVideoFiles(selectedDirectory);
+    }
+    else if(arg1 == "Music"){
+        //todo
+    }
 }

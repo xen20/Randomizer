@@ -19,7 +19,7 @@ QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList 
         return randomlySelectedFolders;
     }
     else{
-        for(int idx = 0; idx < numOfObjects; idx++){
+        for(int idx = 0; idx < numOfObjects; ++idx){
             int randomFolder = qrand() % randomFolderRange;
             if(!randomlySelectedFolders.contains(objects[randomFolder])){
                 randomlySelectedFolders.append(objects[randomFolder]);
@@ -28,7 +28,7 @@ QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList 
                 break;
             }
             else{
-                idx--;
+                --idx;
                 continue;
             }
         }

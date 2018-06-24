@@ -18,19 +18,16 @@ public:
 
 private slots:
     void on_browsefolderButton_clicked();
-
     void on_foldergenButton_clicked();
-
     void on_clearFolderHistory_clicked();
-
-
     void on_exitButton_released();
-
     void on_spinBox_valueChanged(int value);
+    void on_objectTypeComboBox_activated(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
-    QStringList currentContents_;
+    QString selectedDirectory;
+    QStringList currentContents;
     int folderCount;
 };
 
