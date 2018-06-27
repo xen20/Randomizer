@@ -1,8 +1,7 @@
 #include "folderbrowser.h"
-#include <QStringList>
+
 #include <QStandardPaths>
-#include <QDir>
-#include <QDirIterator>
+#include <QDirIterator>   //includes <QDir> as well
 
 folderBrowser::folderBrowser(){
     //ctor
@@ -13,9 +12,10 @@ folderBrowser::~folderBrowser(){
 }
 
 QString folderBrowser::getHomefolder(){
-    folder = QStandardPaths::locate(QStandardPaths::HomeLocation,
+    QString homeFolder;
+    homeFolder = QStandardPaths::locate(QStandardPaths::HomeLocation,
                   QString(), QStandardPaths::LocateDirectory);
-    return folder;
+    return homeFolder;
 }
 
 QString folderBrowser::getDocumentsfolder(){
@@ -24,16 +24,17 @@ QString folderBrowser::getDocumentsfolder(){
     return docFolder;
 }
 
-QStringList folderBrowser::folderContents(QString folder, bool recursiveOrNot, bool absoluteOrNot){
-    QDir path = QDir(folder);
-    path.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+QStringList folderBrowser::folderContents(browseParameters &browseParameters_){
+    QDir currentPath = QDir(browseParameters_.selectedDirectory);
+    currentPath.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+
     QStringList  foldersRetrieved;
 
-    if(recursiveOrNot == false){
-        foldersRetrieved = path.entryList();
+    if(browseParameters_.recursiveOrNot == false){
+        foldersRetrieved = currentPath.entryList();
     }
-    else if(recursiveOrNot == true){
-        QDirIterator iter(path, QDirIterator::Subdirectories);
+    else if(browseParameters_.recursiveOrNot == true){
+        QDirIterator iter(currentPath, QDirIterator::Subdirectories);
 
         while(iter.hasNext()){
             foldersRetrieved << iter.next();

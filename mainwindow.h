@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "browseparameters.h"
+
 #include <QMainWindow>
 #include <QStringList>
 
@@ -27,11 +29,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QString selectedDirectory;
     QStringList currentContents;
+    browseParameters browseParameters_;
+
     int folderCount;
-    bool absolutePathOrNot;
-    bool recursiveOrNot;
 };
 
 #endif // MAINWINDOW_H

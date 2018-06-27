@@ -4,6 +4,7 @@
 #include "folderhistory.h"
 #include "folderrandomizer.h"
 #include "filebrowser.h"
+
 #include <QString>
 #include <QStringList>
 #include <QApplication>
@@ -26,20 +27,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_browsefolderButton_clicked()
 {
     folderBrowser browseFolder;
-    static int    browseFunctionFirstCall = 0;
-    QString home = browseFolder.getHomefolder();
+    QString homeFolder = browseFolder.getHomefolder();
 
-    selectedDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"), home,
+    browseParameters_.selectedDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"), homeFolder,
                                                       QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
 
-    if (browseFunctionFirstCall == 0){
-        //defaults the selected object type to Directory on first press of browse button
-        currentContents = browseFolder.folderContents(selectedDirectory, true,true);
-        ++browseFunctionFirstCall;
-    }
-
-    ui->selectedFolder->setText(selectedDirectory);
+    ui->selectedFolder->setText(browseParameters_.selectedDirectory);
 }
 
 void MainWindow::on_foldergenButton_clicked(){
@@ -78,11 +72,9 @@ void MainWindow::on_spinBox_valueChanged(int value){
 void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
     if(arg1 == "Directories"){
         folderBrowser browseFolder;
-        currentContents = browseFolder.folderContents(selectedDirectory, recursiveOrNot, true);
+        currentContents = browseFolder.folderContents(browseParameters_);
     }
     else if(arg1 == "Videos"){
-        fileBrowser browseFile;
-        currentContents = browseFile.getVideoFiles(selectedDirectory);
     }
     else if(arg1 == "Music"){
         //todo
@@ -90,10 +82,14 @@ void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
 }
 
 void MainWindow::on_subdirectoriesCheckBox_stateChanged(int arg1){
+    folderBrowser browseFolder;
+
     if(ui->subdirectoriesCheckBox->isChecked()){
-        recursiveOrNot = true;
+        browseParameters_.recursiveOrNot = true;
     }
     else{
-        recursiveOrNot = false;
+        browseParameters_.recursiveOrNot = false;
     }
+
+    currentContents = browseFolder.folderContents(browseParameters_);
 }
