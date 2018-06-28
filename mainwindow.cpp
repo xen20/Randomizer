@@ -33,6 +33,7 @@ void MainWindow::on_browsefolderButton_clicked()
                                                       QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
 
+    currentContents = browseFolder.folderContents(browseParameters_);
     ui->selectedFolder->setText(browseParameters_.selectedDirectory);
 }
 

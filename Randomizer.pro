@@ -29,7 +29,6 @@ SOURCES += \
     folderbrowser.cpp \
     folderhistory.cpp \
     folderrandomizer.cpp \
-    filebrowser.cpp \
     browseparameters.cpp
 
 HEADERS += \
@@ -37,7 +36,6 @@ HEADERS += \
     folderbrowser.h \
     folderhistory.h \
     folderrandomizer.h \
-    filebrowser.h \
     browseparameters.h
 
 FORMS += \

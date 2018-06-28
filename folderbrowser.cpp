@@ -31,6 +31,12 @@ QStringList folderBrowser::folderContents(browseParameters &browseParameters_){
     if(browseParameters_.objectType == "Directories"){
         objectsRetrieved = this->getDirectories(browseParameters_, currentPath);
     }
+    else if(browseParameters_.objectType == "Videos"){
+        objectsRetrieved = this->getVideos(browseParameters_, currentPath);
+    }
+    else if(browseParameters_.objectType == "Music"){
+        objectsRetrieved = this->getMusic(browseParameters_, currentPath);
+    }
 
     return objectsRetrieved;
 }
@@ -62,7 +68,38 @@ QStringList folderBrowser::getVideos(browseParameters &browseParameters_, QDir &
     currentPath.setFilter(QDir::Files);
     currentPath.setNameFilters(videoFileTypes);
 
-    if(browseParameters_.recursiveOrNot)
+    if(browseParameters_.recursiveOrNot == false){
+        videosRetrieved = currentPath.entryList();
+    }
+    else if(browseParameters_.recursiveOrNot == true){
+        QDirIterator iter(currentPath, QDirIterator::Subdirectories);
 
-    return path.entryList();
+        while(iter.hasNext()){
+            videosRetrieved << iter.next();
+        }
+    }
+
+    return videosRetrieved;
+}
+
+QStringList folderBrowser::getMusic(browseParameters &browseParameters_, QDir &currentPath){
+    QStringList musicFileTypes;
+    QStringList musicRetrieved;
+    musicFileTypes << "*mp3" << "*.m4a" << "*.ogg" << "*.wav" << "*.wma";
+
+    currentPath.setFilter(QDir::Files);
+    currentPath.setNameFilters(musicFileTypes);
+
+    if(browseParameters_.recursiveOrNot == false){
+        musicRetrieved = currentPath.entryList();
+    }
+    else if(browseParameters_.recursiveOrNot == true){
+        QDirIterator iter(currentPath, QDirIterator::Subdirectories);
+
+        while(iter.hasNext()){
+            musicRetrieved << iter.next();
+        }
+    }
+
+    return musicRetrieved;
 }

@@ -15,8 +15,8 @@ public:
     QStringList folderContents(browseParameters &browseParameters_);
 private:
     QStringList getDirectories(browseParameters &browseParameters_, QDir &currentPath);
-    QStringList getVideos();
-    QStringList getMusic();
+    QStringList getVideos(browseParameters &browseParameters_, QDir &currentPath);
+    QStringList getMusic(browseParameters &browseParameters_, QDir &currentPath);
 };
 
 #endif // FOLDERBROWSER_H
