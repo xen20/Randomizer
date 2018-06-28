@@ -2,6 +2,7 @@
 
 browseParameters::browseParameters(){
     selectedDirectory = "";
+    objectType = "Directories";
     recursiveOrNot =  false;
     absoluteOrNot = false;
 }

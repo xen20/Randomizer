@@ -70,15 +70,17 @@ void MainWindow::on_spinBox_valueChanged(int value){
 }
 
 void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
+    folderBrowser browseFolder;
     if(arg1 == "Directories"){
-        folderBrowser browseFolder;
-        currentContents = browseFolder.folderContents(browseParameters_);
+        browseParameters_.objectType = "Directories";
     }
     else if(arg1 == "Videos"){
+        browseParameters_.objectType = "Videos";
     }
     else if(arg1 == "Music"){
-        //todo
+        browseParameters_.objectType = "Music";
     }
+    currentContents = browseFolder.folderContents(browseParameters_);
 }
 
 void MainWindow::on_subdirectoriesCheckBox_stateChanged(int arg1){

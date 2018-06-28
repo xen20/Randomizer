@@ -3,6 +3,8 @@
 
 #include "browseparameters.h" //already includes <QStringList>
 
+#include <QDir>
+
 class folderBrowser
 {
 public:
@@ -12,7 +14,7 @@ public:
     QString getDocumentsfolder();
     QStringList folderContents(browseParameters &browseParameters_);
 private:
-    QStringList getDirectories();
+    QStringList getDirectories(browseParameters &browseParameters_, QDir &currentPath);
     QStringList getVideos();
     QStringList getMusic();
 };

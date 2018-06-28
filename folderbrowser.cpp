@@ -26,9 +26,19 @@ QString folderBrowser::getDocumentsfolder(){
 
 QStringList folderBrowser::folderContents(browseParameters &browseParameters_){
     QDir currentPath = QDir(browseParameters_.selectedDirectory);
-    currentPath.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    QStringList objectsRetrieved;
 
-    QStringList  foldersRetrieved;
+    if(browseParameters_.objectType == "Directories"){
+        objectsRetrieved = this->getDirectories(browseParameters_, currentPath);
+    }
+
+    return objectsRetrieved;
+}
+
+QStringList folderBrowser::getDirectories(browseParameters &browseParameters_, QDir &currentPath){
+
+    QStringList foldersRetrieved;
+    currentPath.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 
     if(browseParameters_.recursiveOrNot == false){
         foldersRetrieved = currentPath.entryList();
@@ -42,4 +52,17 @@ QStringList folderBrowser::folderContents(browseParameters &browseParameters_){
     }
 
     return foldersRetrieved;
+}
+
+QStringList folderBrowser::getVideos(browseParameters &browseParameters_, QDir &currentPath){
+    QStringList videoFileTypes;
+    QStringList videosRetrieved;
+    videoFileTypes << "*ts" << "*.mp4" << "*.mkv" << "*.avi" << "*.rm";
+
+    currentPath.setFilter(QDir::Files);
+    currentPath.setNameFilters(videoFileTypes);
+
+    if(browseParameters_.recursiveOrNot)
+
+    return path.entryList();
 }

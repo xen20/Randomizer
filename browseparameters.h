@@ -10,6 +10,7 @@ public:
     browseParameters();
     ~browseParameters();
     QString selectedDirectory;
+    QString objectType;
     bool recursiveOrNot;
     bool absoluteOrNot;
 };
