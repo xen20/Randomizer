@@ -3,7 +3,7 @@
 #include "folderbrowser.h"
 #include "folderhistory.h"
 #include "folderrandomizer.h"
-#include "filebrowser.h"
+#include "gifplayer.h"
 
 #include <QString>
 #include <QStringList>
@@ -38,6 +38,12 @@ void MainWindow::on_browsefolderButton_clicked()
 }
 
 void MainWindow::on_foldergenButton_clicked(){
+
+    gifPlayer playGif;
+
+    playGif.playGif();
+
+    qDebug("fucktown\n");
 
     folderHistory getHistory(currentContents);
 

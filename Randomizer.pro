@@ -29,14 +29,16 @@ SOURCES += \
     folderbrowser.cpp \
     folderhistory.cpp \
     folderrandomizer.cpp \
-    browseparameters.cpp
+    browseparameters.cpp \
+    gifplayer.cpp
 
 HEADERS += \
         mainwindow.h \
     folderbrowser.h \
     folderhistory.h \
     folderrandomizer.h \
-    browseparameters.h
+    browseparameters.h \
+    gifplayer.h
 
 FORMS += \
         mainwindow.ui
