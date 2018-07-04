@@ -30,7 +30,8 @@ SOURCES += \
     folderhistory.cpp \
     folderrandomizer.cpp \
     browseparameters.cpp \
-    gifplayer.cpp
+    gifplayer.cpp \
+    settings.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     folderhistory.h \
     folderrandomizer.h \
     browseparameters.h \
-    gifplayer.h
+    gifplayer.h \
+    settings.h
 
 FORMS += \
         mainwindow.ui
