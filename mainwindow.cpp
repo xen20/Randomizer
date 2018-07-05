@@ -3,6 +3,7 @@
 #include "folderbrowser.h"
 #include "folderhistory.h"
 #include "folderrandomizer.h"
+#include "settings.h"
 #include "gifplayer.h"
 
 #include <QString>
@@ -16,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    guiSettings appSettings;
+    appSettings.loadSettings();
+    appSettings.saveSettings();
     ui->setupUi(this);
 }
 
@@ -39,9 +43,9 @@ void MainWindow::on_browsefolderButton_clicked()
 
 void MainWindow::on_foldergenButton_clicked(){
 
-    gifPlayer playGif;
-
-    playGif.playGif();
+    guiSettings appSettings;
+    appSettings.loadSettings();
+    appSettings.saveSettings();
 
     qDebug("fucktown\n");
 

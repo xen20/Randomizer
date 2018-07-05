@@ -4,13 +4,16 @@
 #include <QLabel>
 #include <QLineEdit>
 
-class settings
+class guiSettings
 {
 public:
-    settings();
-    ~settings();
+    guiSettings();
+    ~guiSettings();
     void saveSettings();
     void loadSettings();
+private:
+    QString settingsFile;
+    QString ziga;
 };
 
 #endif // SETTINGS_H
