@@ -5,20 +5,33 @@
 #include <QCoreApplication>
 
 guiSettings::guiSettings(){
-    settingsFile = QApplication::applicationDirPath().left(1) + ":/appsettings.ini";
+    settingsFile = QApplication::applicationDirPath() + "/appsettings.ini";
 }
 
 guiSettings::~guiSettings(){
 
 }
 
-void guiSettings::loadSettings(){
-    settingsFile = QApplication::applicationDirPath().left(1) + "appsettings.ini";
-    QSettings appSettlings(settingsFile, QSettings::NativeFormat);
-    QString loadedText = appSettlings.value("text", "").toString();
+void guiSettings::loadSettings(browseParameters &browseParameters_, QMainWindow &Ui){
+    QSettings appSettings(settingsFile, QSettings::NativeFormat);
+
+    browseParameters_.selectedDirectory = appSettings.value("LastParameters/LastDirectory", "/").toString();
+    browseParameters_.objectType = appSettings.value("LastParameters/LastObjectType", "Directories").toString();
+    browseParameters_.recursiveOrNot = appSettings.value("LastParameters/Recursive", false).toBool();
+    browseParameters_.absoluteOrNot  = appSettings.value("LastParameters/AbsolutePaths", false).toBool();
+
+    this->adjustUI(browseParameters_, Ui);
 }
 
-void guiSettings::saveSettings(){
-    QSettings appSettlings(settingsFile, QSettings::NativeFormat);
-    appSettlings.setValue("text", "text");
+void guiSettings::saveSettings(browseParameters &browseParameters_){
+    QSettings appSettings(settingsFile, QSettings::NativeFormat);
+
+    appSettings.setValue("LastParameters/LastDirectory", browseParameters_.selectedDirectory);
+    appSettings.setValue("LastParameters/LastObjectType", browseParameters_.objectType);
+    appSettings.setValue("LastParameters/Recursive", browseParameters_.recursiveOrNot);
+    appSettings.setValue("LastParameters/AbsolutePaths", browseParameters_.absoluteOrNot);
+}
+
+void guiSettings::adjustUI(browseParameters &browseParameters_, QMainWindow &Ui){
+    Ui->selected
 }

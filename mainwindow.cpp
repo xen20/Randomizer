@@ -18,8 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     guiSettings appSettings;
-    appSettings.loadSettings();
-    appSettings.saveSettings();
+    appSettings.loadSettings(browseParameters_, ui);
     ui->setupUi(this);
 }
 
@@ -43,12 +42,6 @@ void MainWindow::on_browsefolderButton_clicked()
 
 void MainWindow::on_foldergenButton_clicked(){
 
-    guiSettings appSettings;
-    appSettings.loadSettings();
-    appSettings.saveSettings();
-
-    qDebug("fucktown\n");
-
     folderHistory getHistory(currentContents);
 
     getHistory.readHistory();
@@ -71,8 +64,10 @@ void MainWindow::on_clearFolderHistory_clicked(){
     ui->selectedObjects->clear();
 }
 
-void MainWindow::on_exitButton_released()
-{
+void MainWindow::on_exitButton_released(){
+    guiSettings appSettings;
+    appSettings.saveSettings(browseParameters_);
+
     QApplication::exit();
 }
 

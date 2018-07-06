@@ -1,19 +1,19 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QLabel>
-#include <QLineEdit>
+#include "browseparameters.h"
+#include <QMainWindow>
 
 class guiSettings
 {
 public:
     guiSettings();
     ~guiSettings();
-    void saveSettings();
-    void loadSettings();
+    void saveSettings(browseParameters &browseParameters_);
+    void loadSettings(browseParameters &browseParameters_, QMainWindow &Ui);
+    void adjustUI(browseParameters &browseParameters_, QMainWindow &Ui);
 private:
     QString settingsFile;
-    QString ziga;
 };
 
 #endif // SETTINGS_H
