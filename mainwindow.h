@@ -28,8 +28,9 @@ private slots:
     void on_exitButton_released();
     void on_spinBox_valueChanged(int value);
     void on_objectTypeComboBox_activated(const QString &objectType);
-    void on_subdirectoriesCheckBox_stateChanged(int arg1);
     void updateUiOnProgramStartup();
+    void on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot);
+    void on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot);
 
 private:
     Ui::MainWindow *ui;

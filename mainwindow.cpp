@@ -12,11 +12,13 @@
 #include <QFileDialog>
 #include <QTextEdit>
 #include <QCheckBox>
+#include <QMovie>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     guiSettings appSettings;
     appSettings.loadSettings(browseParameters_);
 
@@ -24,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     updateUiOnProgramStartup();
+
 }
 
 MainWindow::~MainWindow()
@@ -31,8 +34,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_browsefolderButton_clicked()
-{
+void MainWindow::on_browsefolderButton_clicked(){
+
     QString homeFolder = browseFolder.getHomefolder();
 
     browseParameters_.selectedDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"), homeFolder,
@@ -61,6 +64,7 @@ void MainWindow::on_foldergenButton_clicked(){
 }
 
 void MainWindow::on_clearFolderHistory_clicked(){
+
     folderHistory clearHistory;
     clearHistory.clearHistory();
 
@@ -68,6 +72,7 @@ void MainWindow::on_clearFolderHistory_clicked(){
 }
 
 void MainWindow::on_exitButton_released(){
+
     guiSettings appSettings;
     appSettings.saveSettings(browseParameters_);
 
@@ -79,22 +84,8 @@ void MainWindow::on_spinBox_valueChanged(int value){
 }
 
 void MainWindow::on_objectTypeComboBox_activated(const QString &objectType){
-    folderBrowser browseFolder;
 
     browseParameters_.objectType = objectType;
-
-    currentContents = browseFolder.folderContents(browseParameters_);
-}
-
-void MainWindow::on_subdirectoriesCheckBox_stateChanged(int arg1){
-    folderBrowser browseFolder;
-
-    if(ui->subdirectoriesCheckBox->isChecked()){
-        browseParameters_.recursiveOrNot = true;
-    }
-    else{
-        browseParameters_.recursiveOrNot = false;
-    }
 
     currentContents = browseFolder.folderContents(browseParameters_);
 }
@@ -107,4 +98,18 @@ void MainWindow::updateUiOnProgramStartup(){
     ui->subdirectoriesCheckBox->setChecked(browseParameters_.recursiveOrNot);
     ui->absolutePathsCheckBox->setChecked(browseParameters_.absoluteOrNot);
 
+}
+
+void MainWindow::on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot){
+
+    browseParameters_.recursiveOrNot = checkBoxCheckedOrNot;
+
+    currentContents = browseFolder.folderContents(browseParameters_);
+}
+
+void MainWindow::on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot){
+
+    browseParameters_.absoluteOrNot = checkBoxCheckedOrNot;
+
+    currentContents = browseFolder.folderContents(browseParameters_);
 }
