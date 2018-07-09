@@ -10,8 +10,7 @@ public:
     guiSettings();
     ~guiSettings();
     void saveSettings(browseParameters &browseParameters_);
-    void loadSettings(browseParameters &browseParameters_, QMainWindow &Ui);
-    void adjustUI(browseParameters &browseParameters_, QMainWindow &Ui);
+    void loadSettings(browseParameters &browseParameters_);
 private:
     QString settingsFile;
 };

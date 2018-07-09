@@ -18,8 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     guiSettings appSettings;
-    appSettings.loadSettings(browseParameters_, ui);
+    appSettings.loadSettings(browseParameters_);
+
+    currentContents = browseFolder.folderContents(browseParameters_);
+
     ui->setupUi(this);
+    updateUiOnProgramStartup();
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +33,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_browsefolderButton_clicked()
 {
-    folderBrowser browseFolder;
     QString homeFolder = browseFolder.getHomefolder();
 
     browseParameters_.selectedDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"), homeFolder,
@@ -48,7 +51,7 @@ void MainWindow::on_foldergenButton_clicked(){
     QStringList currentList = getHistory.compareNewAndOldFolders();
     folderRandomizer getRandomFolders;
 
-    QStringList randFolder = getRandomFolders.returnRandomObjects(folderCount,currentList);
+    QStringList randFolder = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
 
     for(int index = 0; index < randFolder.size(); index++){
         ui->selectedObjects->append(randFolder[index]);
@@ -72,20 +75,14 @@ void MainWindow::on_exitButton_released(){
 }
 
 void MainWindow::on_spinBox_valueChanged(int value){
-    folderCount = value;
+    browseParameters_.objectCount = value;
 }
 
-void MainWindow::on_objectTypeComboBox_activated(const QString &arg1){
+void MainWindow::on_objectTypeComboBox_activated(const QString &objectType){
     folderBrowser browseFolder;
-    if(arg1 == "Directories"){
-        browseParameters_.objectType = "Directories";
-    }
-    else if(arg1 == "Videos"){
-        browseParameters_.objectType = "Videos";
-    }
-    else if(arg1 == "Music"){
-        browseParameters_.objectType = "Music";
-    }
+
+    browseParameters_.objectType = objectType;
+
     currentContents = browseFolder.folderContents(browseParameters_);
 }
 
@@ -100,4 +97,14 @@ void MainWindow::on_subdirectoriesCheckBox_stateChanged(int arg1){
     }
 
     currentContents = browseFolder.folderContents(browseParameters_);
+}
+
+void MainWindow::updateUiOnProgramStartup(){
+
+    ui->selectedFolder->setText(browseParameters_.selectedDirectory);
+    ui->objectTypeComboBox->setCurrentText(browseParameters_.objectType);
+    ui->spinBox->setValue(browseParameters_.objectCount);
+    ui->subdirectoriesCheckBox->setChecked(browseParameters_.recursiveOrNot);
+    ui->absolutePathsCheckBox->setChecked(browseParameters_.absoluteOrNot);
+
 }
