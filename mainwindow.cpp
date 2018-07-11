@@ -13,16 +13,17 @@
 #include <QTextEdit>
 #include <QCheckBox>
 #include <QMovie>
+#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     guiSettings appSettings;
     appSettings.loadSettings(browseParameters_);
 
     currentContents = browseFolder.folderContents(browseParameters_);
+    QFontDatabase::addApplicationFont(":/fonts/Cantarell-Regular.ttf");
 
     ui->setupUi(this);
     updateUiOnProgramStartup();
