@@ -13,11 +13,14 @@ public:
     void writeHistory(QStringList randomlyGeneratedFolders);
     void clearHistory();
     QStringList compareNewAndOldFolders();
+
 private:
     QStringList folderContents;
     QStringList oldFolders;
     QStringList newFolders;
     QString currentLine;
+    QString programRootFolder;
+    QString resultFileFolder;
     QString resultFilePath;
 };
 

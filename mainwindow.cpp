@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     guiSettings appSettings;
     appSettings.loadSettings(browseParameters_);
 

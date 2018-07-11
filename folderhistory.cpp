@@ -1,22 +1,24 @@
 #include "folderhistory.h"
-#include "folderbrowser.h"
+
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
 #include <QIODevice>
-#include <QStandardPaths>
+#include <QApplication>
 
 folderHistory::folderHistory(QStringList folderContents){
+
     newFolders = folderContents;
-    folderBrowser browseDir;
-    resultFilePath = browseDir.getDocumentsfolder();
-    QString finalPath = resultFilePath.append("test.txt");
+    programRootFolder = QApplication::applicationDirPath();
+    resultFileFolder = "/results";
+    resultFilePath = programRootFolder + resultFileFolder + "/results.txt";
 }
 
 folderHistory::folderHistory(){
-    folderBrowser browseDir;
-    resultFilePath = browseDir.getDocumentsfolder();
-    QString finalPath = resultFilePath.append("test.txt");
+
+    programRootFolder = QApplication::applicationDirPath();
+    resultFileFolder = "/results";
+    resultFilePath = programRootFolder + resultFileFolder + "/results.txt";
 }
 
 folderHistory::~folderHistory(){
@@ -24,6 +26,7 @@ folderHistory::~folderHistory(){
 }
 
 void folderHistory::readHistory(){
+
     QFile filehandle(resultFilePath);
     filehandle.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream filestream(&filehandle);
@@ -36,6 +39,13 @@ void folderHistory::readHistory(){
 }
 
 void folderHistory::writeHistory(QStringList randomlyGeneratedFolders){
+
+    QDir pathHandler;
+
+    if(!(pathHandler.exists(resultFilePath))){
+        pathHandler.mkdir(programRootFolder+resultFileFolder);
+    }
+
     QFile filehandle(resultFilePath);
     filehandle.open(QIODevice::Append | QIODevice::Text);
     QTextStream filestream(&filehandle);
@@ -48,6 +58,7 @@ void folderHistory::writeHistory(QStringList randomlyGeneratedFolders){
 }
 
 QStringList folderHistory::compareNewAndOldFolders(){
+
     int index = 0;
     while((oldFolders.size() > 0) && (index < oldFolders.size())){
         if(newFolders.contains(oldFolders[index])){
@@ -63,6 +74,7 @@ QStringList folderHistory::compareNewAndOldFolders(){
 }
 
 void folderHistory::clearHistory(){
+
     QFile filehandle(resultFilePath);
     filehandle.open(QIODevice::WriteOnly | QIODevice::Truncate);
     filehandle.close();
