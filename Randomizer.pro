@@ -31,7 +31,8 @@ SOURCES += \
     folderrandomizer.cpp \
     browseparameters.cpp \
     gifplayer.cpp \
-    settings.cpp
+    settings.cpp \
+    fonthandler.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     folderrandomizer.h \
     browseparameters.h \
     gifplayer.h \
-    settings.h
+    settings.h \
+    fonthandler.h
 
 FORMS += \
         mainwindow.ui
