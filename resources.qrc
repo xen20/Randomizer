@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>fonts/Cantarell-Regular.ttf</file>
+        <file>fonts/OldLondon.ttf</file>
     </qresource>
 </RCC>

@@ -5,15 +5,14 @@
 #include "folderrandomizer.h"
 #include "settings.h"
 #include "gifplayer.h"
+#include "fonthandler.h"
 
-#include <QString>
 #include <QStringList>
 #include <QApplication>
 #include <QFileDialog>
 #include <QTextEdit>
 #include <QCheckBox>
 #include <QMovie>
-#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,10 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
     appSettings.loadSettings(browseParameters_);
 
     currentContents = browseFolder.folderContents(browseParameters_);
-    QFontDatabase::addApplicationFont(":/fonts/Cantarell-Regular.ttf");
+
+    fontHandler chooseFontAndSize;
+    chooseFontAndSize.setGlobalFont("Cantarell-Regular", 12);
 
     ui->setupUi(this);
-    updateUiOnProgramStartup();
+    this->updateUiOnProgramStartup();
 
 }
 
