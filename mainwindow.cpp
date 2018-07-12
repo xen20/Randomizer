@@ -13,6 +13,7 @@
 #include <QTextEdit>
 #include <QCheckBox>
 #include <QMovie>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -74,6 +75,14 @@ void MainWindow::on_clearFolderHistory_clicked(){
 }
 
 void MainWindow::on_exitButton_released(){
+
+    QLabel label;
+    QMovie *movie = new QMovie("/home/konstantin/Documents/Randomizer_late/test.gif");
+
+    label.setMovie(movie);
+    movie->start();
+
+    QThread::msleep(1000);
 
     guiSettings appSettings;
     appSettings.saveSettings(browseParameters_);
