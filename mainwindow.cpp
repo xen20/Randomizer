@@ -124,3 +124,13 @@ void MainWindow::on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot){
 
     currentContents = browseFolder.folderContents(browseParameters_);
 }
+
+void MainWindow::on_browseForDestination_clicked(){
+    QString homeFolder = browseFolder.getHomefolder();
+
+    browseParameters_.copyTargetDirectory = QFileDialog::getExistingDirectory(this, tr("Choose Destination Directory"), homeFolder,
+                                                      QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+
+    ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
+}
