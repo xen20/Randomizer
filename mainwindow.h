@@ -32,6 +32,8 @@ private slots:
     void on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot);
     void on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot);
 
+    void on_browseForDestination_clicked();
+
 private:
     Ui::MainWindow *ui;
     QStringList currentContents;

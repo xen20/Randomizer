@@ -10,6 +10,7 @@ public:
     browseParameters();
     ~browseParameters();
     QString selectedDirectory;
+    QString copyTargetDirectory;
     QString objectType;
     int  objectCount;
     bool recursiveOrNot;
