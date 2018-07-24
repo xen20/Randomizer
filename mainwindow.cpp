@@ -104,6 +104,7 @@ void MainWindow::on_objectTypeComboBox_activated(const QString &objectType){
 void MainWindow::updateUiOnProgramStartup(){
 
     ui->selectedFolder->setText(browseParameters_.selectedDirectory);
+    ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
     ui->objectTypeComboBox->setCurrentText(browseParameters_.objectType);
     ui->spinBox->setValue(browseParameters_.objectCount);
     ui->subdirectoriesCheckBox->setChecked(browseParameters_.recursiveOrNot);
