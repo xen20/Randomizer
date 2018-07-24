@@ -39,6 +39,7 @@ private:
     QStringList currentContents;
     browseParameters browseParameters_;
     folderBrowser browseFolder;
+    QStringList   ranCopy;
 };
 
 #endif // MAINWINDOW_H

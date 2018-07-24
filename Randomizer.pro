@@ -32,7 +32,8 @@ SOURCES += \
     browseparameters.cpp \
     gifplayer.cpp \
     settings.cpp \
-    fonthandler.cpp
+    fonthandler.cpp \
+    filecopyfunctions.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     browseparameters.h \
     gifplayer.h \
     settings.h \
-    fonthandler.h
+    fonthandler.h \
+    filecopyfunctions.h
 
 FORMS += \
         mainwindow.ui

@@ -6,6 +6,7 @@
 #include "settings.h"
 #include "gifplayer.h"
 #include "fonthandler.h"
+#include "filecopyfunctions.h"
 
 #include <QStringList>
 #include <QApplication>
@@ -58,6 +59,7 @@ void MainWindow::on_foldergenButton_clicked(){
     folderRandomizer getRandomFolders;
 
     QStringList randFolder = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
+    ranCopy = randFolder;
 
     for(int index = 0; index < randFolder.size(); index++){
         ui->selectedObjects->append(randFolder[index]);
@@ -104,6 +106,7 @@ void MainWindow::on_objectTypeComboBox_activated(const QString &objectType){
 void MainWindow::updateUiOnProgramStartup(){
 
     ui->selectedFolder->setText(browseParameters_.selectedDirectory);
+    ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
     ui->objectTypeComboBox->setCurrentText(browseParameters_.objectType);
     ui->spinBox->setValue(browseParameters_.objectCount);
     ui->subdirectoriesCheckBox->setChecked(browseParameters_.recursiveOrNot);
@@ -133,4 +136,8 @@ void MainWindow::on_browseForDestination_clicked(){
                                                     | QFileDialog::DontResolveSymlinks);
 
     ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
+
+    fileCopyFunctions copier;
+
+    copier.recursiveCopy(ranCopy,browseParameters_.copyTargetDirectory);
 }
