@@ -112,7 +112,6 @@ void MainWindow::updateUiOnProgramStartup(){
     ui->objectTypeComboBox->setCurrentText(browseParameters_.objectType);
     ui->spinBox->setValue(browseParameters_.objectCount);
     ui->subdirectoriesCheckBox->setChecked(browseParameters_.recursiveOrNot);
-    ui->absolutePathsCheckBox->setChecked(browseParameters_.absoluteOrNot);
 
 }
 
@@ -139,9 +138,9 @@ void MainWindow::on_browseForDestination_clicked(){
 
     ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
 
-    QtShell::cp("-R","/home/xen20/bab", "/home/xen20/des");
+    fileCopyFunctions copier;
 
-//    fileCopyFunctions copier;
+    copier.recursiveCopy(ranCopy, browseParameters_.copyTargetDirectory);
 
-//    copier.recursiveCopy(ranCopy,browseParameters_.copyTargetDirectory);
+    //QtShell::cp("-a", "/home/konstantin/ziga", "/home/konstantin/dummytarget");
 }

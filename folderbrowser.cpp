@@ -47,7 +47,12 @@ QStringList folderBrowser::getDirectories(browseParameters &browseParameters_, Q
     currentPath.setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
 
     if(browseParameters_.recursiveOrNot == false){
-        foldersRetrieved = currentPath.entryList();
+        //foldersRetrieved = currentPath.entryList();
+        QDirIterator iter(currentPath, QDirIterator::NoIteratorFlags);
+
+        while(iter.hasNext()){
+            foldersRetrieved << iter.next();
+        }
     }
     else if(browseParameters_.recursiveOrNot == true){
         QDirIterator iter(currentPath, QDirIterator::Subdirectories);
@@ -69,7 +74,12 @@ QStringList folderBrowser::getVideos(browseParameters &browseParameters_, QDir &
     currentPath.setNameFilters(videoFileTypes);
 
     if(browseParameters_.recursiveOrNot == false){
-        videosRetrieved = currentPath.entryList();
+        //videosRetrieved = currentPath.entryList();
+        QDirIterator iter(currentPath, QDirIterator::NoIteratorFlags);
+
+        while(iter.hasNext()){
+            videosRetrieved << iter.next();
+        }
     }
     else if(browseParameters_.recursiveOrNot == true){
         QDirIterator iter(currentPath, QDirIterator::Subdirectories);
@@ -91,7 +101,12 @@ QStringList folderBrowser::getMusic(browseParameters &browseParameters_, QDir &c
     currentPath.setNameFilters(musicFileTypes);
 
     if(browseParameters_.recursiveOrNot == false){
-        musicRetrieved = currentPath.entryList();
+        //musicRetrieved = currentPath.entryList();
+        QDirIterator iter(currentPath, QDirIterator::NoIteratorFlags);
+
+        while(iter.hasNext()){
+            musicRetrieved << iter.next();
+        }
     }
     else if(browseParameters_.recursiveOrNot == true){
         QDirIterator iter(currentPath, QDirIterator::Subdirectories);
