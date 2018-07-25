@@ -9,7 +9,6 @@ public:
     fileCopyFunctions();
     ~fileCopyFunctions();
     void recursiveCopy(QStringList sourceFiles, QString Destination);
-    void normalCopy(QStringList sourceFiles, QString Destination);
 };
 
 #endif // FILECOPYFUNCTIONS_H
