@@ -16,6 +16,8 @@
 #include <QMovie>
 #include <QThread>
 
+#include <QtShell>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -137,7 +139,9 @@ void MainWindow::on_browseForDestination_clicked(){
 
     ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
 
-    fileCopyFunctions copier;
+    QtShell::cp("-R","/home/xen20/bab", "/home/xen20/des");
 
-    copier.recursiveCopy(ranCopy,browseParameters_.copyTargetDirectory);
+//    fileCopyFunctions copier;
+
+//    copier.recursiveCopy(ranCopy,browseParameters_.copyTargetDirectory);
 }
