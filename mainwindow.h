@@ -30,8 +30,6 @@ private slots:
     void on_objectTypeComboBox_activated(const QString &objectType);
     void updateUiOnProgramStartup();
     void on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot);
-    void on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot);
-
     void on_browseForDestination_clicked();
 
 private:

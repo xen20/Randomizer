@@ -15,8 +15,7 @@
 #include <QCheckBox>
 #include <QMovie>
 #include <QThread>
-
-#include <QtShell>
+#include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,6 +31,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     this->updateUiOnProgramStartup();
+
+    QLabel *moviePlayerLabel = new QLabel(this);
+    QMovie *movie = new QMovie("/home/osboxes/ownrepos/Randomizer/test2.gif");
+
+    if(movie->isValid()){
+        qDebug("valid");
+    }
+
+    moviePlayerLabel->setMovie(movie);
+    movie->start();
 
 }
 
@@ -80,12 +89,6 @@ void MainWindow::on_clearFolderHistory_clicked(){
 
 void MainWindow::on_exitButton_released(){
 
-    QLabel label;
-    QMovie *movie = new QMovie("/home/konstantin/Documents/Randomizer_late/test.gif");
-
-    label.setMovie(movie);
-    movie->start();
-
     QThread::msleep(1000);
 
     guiSettings appSettings;
@@ -122,13 +125,6 @@ void MainWindow::on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot){
     currentContents = browseFolder.folderContents(browseParameters_);
 }
 
-void MainWindow::on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot){
-
-    browseParameters_.absoluteOrNot = checkBoxCheckedOrNot;
-
-    currentContents = browseFolder.folderContents(browseParameters_);
-}
-
 void MainWindow::on_browseForDestination_clicked(){
     QString homeFolder = browseFolder.getHomefolder();
 
@@ -137,10 +133,4 @@ void MainWindow::on_browseForDestination_clicked(){
                                                     | QFileDialog::DontResolveSymlinks);
 
     ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
-
-    fileCopyFunctions copier;
-
-    copier.recursiveCopy(ranCopy, browseParameters_.copyTargetDirectory);
-
-    //QtShell::cp("-a", "/home/konstantin/ziga", "/home/konstantin/dummytarget");
 }
