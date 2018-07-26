@@ -7,6 +7,8 @@
 #include <QMainWindow>
 #include <QStringList>
 
+#include "movieplayerwidget.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -38,6 +40,7 @@ private:
     browseParameters browseParameters_;
     folderBrowser browseFolder;
     QStringList   ranCopy;
+    moviePlayerWidget movieWidget;
 };
 
 #endif // MAINWINDOW_H

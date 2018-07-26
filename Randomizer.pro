@@ -34,7 +34,8 @@ SOURCES += \
     gifplayer.cpp \
     settings.cpp \
     fonthandler.cpp \
-    filecopyfunctions.cpp
+    filecopyfunctions.cpp \
+    movieplayerwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,10 +46,12 @@ HEADERS += \
     gifplayer.h \
     settings.h \
     fonthandler.h \
-    filecopyfunctions.h
+    filecopyfunctions.h \
+    movieplayerwidget.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    movieplayerwidget.ui
 
 RESOURCES += \
     resources.qrc

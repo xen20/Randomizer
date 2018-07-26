@@ -8,6 +8,7 @@
 #include "fonthandler.h"
 #include "filecopyfunctions.h"
 
+
 #include <QStringList>
 #include <QApplication>
 #include <QFileDialog>
@@ -31,16 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     this->updateUiOnProgramStartup();
-
-    QLabel *moviePlayerLabel = new QLabel(this);
-    QMovie *movie = new QMovie("/home/osboxes/ownrepos/Randomizer/test2.gif");
-
-    if(movie->isValid()){
-        qDebug("valid");
-    }
-
-    moviePlayerLabel->setMovie(movie);
-    movie->start();
 
 }
 
@@ -133,4 +124,6 @@ void MainWindow::on_browseForDestination_clicked(){
                                                     | QFileDialog::DontResolveSymlinks);
 
     ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
+
+    movieWidget.show();
 }
