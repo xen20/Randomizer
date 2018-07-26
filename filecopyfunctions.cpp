@@ -13,7 +13,18 @@ fileCopyFunctions::~fileCopyFunctions(){
 }
 
 void fileCopyFunctions::recursiveCopy(QStringList sourceFiles, QString Destination){
+    QDir folderAccessFunctions;
+    QStringList fileNameAfterSplit;
+    QString fileNameIfDuplicateExists;
+
     for (int idx = 0; idx < sourceFiles.count(); ++idx){
-        QtShell::cp("-vR", sourceFiles[idx], Destination);
+        if(folderAccessFunctions.exists(sourceFiles[idx])){
+            fileNameAfterSplit = sourceFiles[idx].split(".");
+            fileNameIfDuplicateExists = fileNameAfterSplit.join("-copy.");
+            QtShell::cp("-vR", sourceFiles[idx], Destination+"/"+QtShell::basename(fileNameIfDuplicateExists));
+        }
+        else{
+            QtShell::cp("-vR", sourceFiles[idx], Destination);
+        }
     }
 }
