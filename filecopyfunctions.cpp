@@ -13,8 +13,7 @@ fileCopyFunctions::~fileCopyFunctions(){
 }
 
 void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
-    static int copyIndex = 1;
-
+    int  fileCopyIndex = 1;
     QDir folderAccessFunctions;
 
     QStringList fileNameAfterSplit;
@@ -25,13 +24,12 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
         if(folderAccessFunctions.exists(sourceFiles[idx]) && folderAccessFunctions.exists(Destination+"/"+QtShell::basename(sourceFiles[idx]))){
 
             fileNameAfterSplit = QtShell::basename(sourceFiles[idx]).split(".");
-            fileNameIfDuplicateExists = fileNameAfterSplit.join("-"+QString::number(copyIndex)+".");
+            fileNameIfDuplicateExists = fileNameAfterSplit.join("-"+QString::number(fileCopyIndex)+".");
+
+
+
             destinationIfDuplicateExists = Destination+"/"+fileNameIfDuplicateExists;
 
-            if(folderAccessFunctions.exists(destinationIfDuplicateExists)){
-                copyIndex++;
-                continue;
-            }
             QtShell::cp("-vR", sourceFiles[idx], Destination+"/"+QtShell::basename(fileNameIfDuplicateExists));
         }
         else{
