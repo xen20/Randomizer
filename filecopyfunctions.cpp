@@ -14,6 +14,7 @@ fileCopyFunctions::~fileCopyFunctions(){
 
 void fileCopyFunctions::recursiveCopy(QStringList sourceFiles, QString Destination){
     QDir folderAccessFunctions;
+
     QStringList fileNameAfterSplit;
     QString fileNameIfDuplicateExists;
 
