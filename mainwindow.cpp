@@ -140,7 +140,5 @@ void MainWindow::on_browseForDestination_clicked(){
 
     fileCopyFunctions copier;
 
-    copier.recursiveCopy(ranCopy, browseParameters_.copyTargetDirectory);
-
-    //QtShell::cp("-a", "/home/konstantin/ziga", "/home/konstantin/dummytarget");
+    copier.fileCopy(ranCopy, browseParameters_.copyTargetDirectory);
 }

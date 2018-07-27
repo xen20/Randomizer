@@ -8,7 +8,8 @@ class fileCopyFunctions
 public:
     fileCopyFunctions();
     ~fileCopyFunctions();
-    void recursiveCopy(QStringList sourceFiles, QString Destination);
+    void fileCopy(QStringList sourceFiles, QString Destination);
+    void folderCopy(QStringList sourceFiles, QString Destination);
 };
 
 #endif // FILECOPYFUNCTIONS_H

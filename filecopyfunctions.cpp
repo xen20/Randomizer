@@ -12,19 +12,36 @@ fileCopyFunctions::~fileCopyFunctions(){
 
 }
 
-void fileCopyFunctions::recursiveCopy(QStringList sourceFiles, QString Destination){
+void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
+    static int copyIndex = 1;
+
     QDir folderAccessFunctions;
+
     QStringList fileNameAfterSplit;
     QString fileNameIfDuplicateExists;
+    QString destinationIfDuplicateExists;
 
     for (int idx = 0; idx < sourceFiles.count(); ++idx){
-        if(folderAccessFunctions.exists(sourceFiles[idx])){
-            fileNameAfterSplit = sourceFiles[idx].split(".");
-            fileNameIfDuplicateExists = fileNameAfterSplit.join("-copy.");
+        if(folderAccessFunctions.exists(sourceFiles[idx]) && folderAccessFunctions.exists(Destination+"/"+QtShell::basename(sourceFiles[idx]))){
+
+            fileNameAfterSplit = QtShell::basename(sourceFiles[idx]).split(".");
+            fileNameIfDuplicateExists = fileNameAfterSplit.join("-"+QString::number(copyIndex)+".");
+            destinationIfDuplicateExists = Destination+"/"+fileNameIfDuplicateExists;
+
+            if(folderAccessFunctions.exists(destinationIfDuplicateExists)){
+                copyIndex++;
+                continue;
+            }
             QtShell::cp("-vR", sourceFiles[idx], Destination+"/"+QtShell::basename(fileNameIfDuplicateExists));
         }
         else{
             QtShell::cp("-vR", sourceFiles[idx], Destination);
         }
+    }
+}
+
+void fileCopyFunctions::folderCopy(QStringList sourceFiles, QString Destination){
+    for(int idx = 0; idx < sourceFiles.count(); ++idx){
+        QtShell::cp("-vR", sourceFiles[idx], Destination);
     }
 }
