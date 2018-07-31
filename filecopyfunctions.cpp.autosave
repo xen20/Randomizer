@@ -29,8 +29,7 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
             fileNameIfDuplicateExists = fileNameAfterSplit.join("-"+QString::number(fileCopyIndex)+".");
             destinationIfDuplicateExists = Destination+"/"+fileNameIfDuplicateExists;
 
-            doesDuplicateExistAfterAppendingIndex = QFileInfo::exists(destinationIfDuplicateExists) && \
-                                                        QFileInfo(destinationIfDuplicateExists).isFile();
+            doesDuplicateExistAfterAppendingIndex = checkIfDuplicateExistsAfterAppendingIndex();
 
             if(doesDuplicateExistAfterAppendingIndex == true){
                 QRegularExpressionMatchIterator digitsInDestinationPath = \
