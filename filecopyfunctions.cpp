@@ -5,7 +5,6 @@
 
 fileCopyFunctions::fileCopyFunctions(){
     fileCopyIndex = 1;
-    fileIndex = 0;
     doesDuplicateFileExistInDest = false;
     doesDuplicateExistAfterAppendingIndex = false;
 }
@@ -40,6 +39,7 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
                 }
             }
             QtShell::cp("-vR", sourceFiles[idx], destinationIfDuplicateExists);
+            fileCopyIndex = 1;
         }
         else{
             QtShell::cp("-vR", sourceFiles[idx], Destination);
@@ -53,15 +53,6 @@ void fileCopyFunctions::folderCopy(QStringList sourceFiles, QString Destination)
     }
 }
 
-bool fileCopyFunctions::checkIfDuplicateExistsAfterAppendingIndex(){
-    bool doesDuplicateExistAfterAppendingIndex_ = false;
-
-    doesDuplicateExistAfterAppendingIndex_ = QFileInfo::exists(destinationIfDuplicateExists) && \
-                                                QFileInfo(destinationIfDuplicateExists).isFile();
-
-    return doesDuplicateExistAfterAppendingIndex_;
-}
-
 bool fileCopyFunctions::checkIfDuplicateFileExistsInDest(QString sourceFile, QString Destination_){
     bool doesDuplicateFileExistInDest_ = false;
 
@@ -69,6 +60,15 @@ bool fileCopyFunctions::checkIfDuplicateFileExistsInDest(QString sourceFile, QSt
                                       QFileInfo(Destination_+"/"+QtShell::basename(sourceFile)).isFile();
 
     return doesDuplicateFileExistInDest_;
+}
+
+bool fileCopyFunctions::checkIfDuplicateExistsAfterAppendingIndex(){
+    bool doesDuplicateExistAfterAppendingIndex_ = false;
+
+    doesDuplicateExistAfterAppendingIndex_ = QFileInfo::exists(destinationIfDuplicateExists) && \
+                                                QFileInfo(destinationIfDuplicateExists).isFile();
+
+    return doesDuplicateExistAfterAppendingIndex_;
 }
 
 QString fileCopyFunctions::handleDuplicateFileName(QString sourceFile, QString Destination_){
@@ -83,7 +83,8 @@ QString fileCopyFunctions::handleDuplicateFileName(QString sourceFile, QString D
 
 void fileCopyFunctions::updateFileCopyIndex(){
 
-    QRegularExpression digitExtractingPattern("(\\d+)");
+    QRegularExpression digitExtractingPattern("(\\d+)\\.");
+    int fileIndex = 0;
 
     QRegularExpressionMatchIterator digitsInDestinationPath = \
             digitExtractingPattern.globalMatch(destinationIfDuplicateExists);
@@ -94,12 +95,7 @@ void fileCopyFunctions::updateFileCopyIndex(){
         extractedDigits << currentDigit;
     }
 
-    if(extractedDigits.count() == 1){
-        fileIndex = extractedDigits.count();
-    }
-    else if(extractedDigits.count() > 1 ){
-        fileIndex = extractedDigits.count()-1;
-    }
+    fileIndex = extractedDigits.count();
 
     fileCopyIndex = extractedDigits[fileIndex-1].toInt()+1;
 

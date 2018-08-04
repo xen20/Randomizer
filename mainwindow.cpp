@@ -8,15 +8,10 @@
 #include "fonthandler.h"
 #include "filecopyfunctions.h"
 
-#include <QStringList>
 #include <QApplication>
 #include <QFileDialog>
 #include <QTextEdit>
 #include <QCheckBox>
-#include <QMovie>
-#include <QThread>
-
-#include <QtShell>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,14 +55,13 @@ void MainWindow::on_foldergenButton_clicked(){
     QStringList currentList = getHistory.compareNewAndOldFolders();
     folderRandomizer getRandomFolders;
 
-    QStringList randFolder = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
-    ranCopy = randFolder;
+    listOfRandomObjects = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
 
-    for(int index = 0; index < randFolder.size(); index++){
-        ui->selectedObjects->append(randFolder[index]);
+    for(int index = 0; index < listOfRandomObjects.size(); index++){
+        ui->selectedObjects->append(listOfRandomObjects[index]);
     }
 
-    getHistory.writeHistory(randFolder);
+    getHistory.writeHistory(listOfRandomObjects);
 }
 
 void MainWindow::on_clearFolderHistory_clicked(){
@@ -79,14 +73,6 @@ void MainWindow::on_clearFolderHistory_clicked(){
 }
 
 void MainWindow::on_exitButton_released(){
-
-    QLabel label;
-    QMovie *movie = new QMovie("/home/konstantin/Documents/Randomizer_late/test.gif");
-
-    label.setMovie(movie);
-    movie->start();
-
-    QThread::msleep(1000);
 
     guiSettings appSettings;
     appSettings.saveSettings(browseParameters_);
@@ -122,13 +108,6 @@ void MainWindow::on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot){
     currentContents = browseFolder.folderContents(browseParameters_);
 }
 
-void MainWindow::on_absolutePathsCheckBox_toggled(bool checkBoxCheckedOrNot){
-
-    browseParameters_.absoluteOrNot = checkBoxCheckedOrNot;
-
-    currentContents = browseFolder.folderContents(browseParameters_);
-}
-
 void MainWindow::on_browseForDestination_clicked(){
     QString homeFolder = browseFolder.getHomefolder();
 
@@ -137,8 +116,15 @@ void MainWindow::on_browseForDestination_clicked(){
                                                     | QFileDialog::DontResolveSymlinks);
 
     ui->targetDestination->setText(browseParameters_.copyTargetDirectory);
+}
 
+void MainWindow::on_copyButton_clicked(){
     fileCopyFunctions copier;
+    if(browseParameters_.objectType == "Directories"){
+        copier.folderCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
+    }
+    else{
+        copier.fileCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
+    }
 
-    copier.fileCopy(ranCopy, browseParameters_.copyTargetDirectory);
 }

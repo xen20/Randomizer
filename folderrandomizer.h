@@ -1,8 +1,6 @@
 #ifndef folderRandomizer_H
 #define folderRandomizer_H
 
-#include <QString>
-#include <QtGlobal>
 #include <QStringList>
 
 class folderRandomizer
