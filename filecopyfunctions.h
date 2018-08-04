@@ -11,8 +11,10 @@ public:
     ~fileCopyFunctions();
     void fileCopy(QStringList sourceFiles, QString Destination);
     void folderCopy(QStringList sourceFiles, QString Destination);
-    QString handleFilePathFunctions(QStringList sourceFiles, QString Destination);
+    void updateFileCopyIndex();
     bool checkIfDuplicateExistsAfterAppendingIndex();
+    bool checkIfDuplicateFileExistsInDest(QString sourceFile, QString Destination_);
+    QString handleDuplicateFileName(QString sourceFile, QString Destination_);
 
 private:
     /*in use by fileCopy function*/
@@ -22,7 +24,7 @@ private:
     QStringList extractedDigits;
     QString fileNameIfDuplicateExists;
     QString destinationIfDuplicateExists;
-    bool checkIfDuplicateInDest;
+    bool doesDuplicateFileExistInDest;
     bool doesDuplicateExistAfterAppendingIndex;
     /*in use by filyCopy function*/
 };
