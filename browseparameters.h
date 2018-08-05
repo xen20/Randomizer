@@ -14,7 +14,6 @@ public:
     QString objectType;
     int  objectCount;
     bool recursiveOrNot;
-    bool absoluteOrNot;
 };
 
 #endif // BROWSEPARAMETERS_H

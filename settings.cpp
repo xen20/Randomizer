@@ -21,7 +21,6 @@ void guiSettings::loadSettings(browseParameters &browseParameters_){
     browseParameters_.objectType = appSettings.value("LastParameters/LastObjectType", "Directories").toString();
     browseParameters_.objectCount = appSettings.value("LastParameters/LastObjectCount", 1).toInt();
     browseParameters_.recursiveOrNot = appSettings.value("LastParameters/Recursive", false).toBool();
-    browseParameters_.absoluteOrNot  = appSettings.value("LastParameters/AbsolutePaths", false).toBool();
 }
 
 void guiSettings::saveSettings(browseParameters &browseParameters_){
@@ -33,5 +32,4 @@ void guiSettings::saveSettings(browseParameters &browseParameters_){
     appSettings.setValue("LastParameters/LastObjectType", browseParameters_.objectType);
     appSettings.setValue("LastParameters/LastObjectCount", browseParameters_.objectCount);
     appSettings.setValue("LastParameters/Recursive", browseParameters_.recursiveOrNot);
-    appSettings.setValue("LastParameters/AbsolutePaths", browseParameters_.absoluteOrNot);
 }

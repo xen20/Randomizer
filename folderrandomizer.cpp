@@ -1,5 +1,7 @@
 #include "folderrandomizer.h"
 
+#include <QRandomGenerator> //true random number generator
+
 folderRandomizer::folderRandomizer()
 {
     //ctor
@@ -20,7 +22,8 @@ QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList 
     }
     else{
         for(int idx = 0; idx < numOfObjects; ++idx){
-            int randomFolder = qrand() % randomFolderRange;
+            quint32 randomBase = QRandomGenerator::global()->generate();
+            int randomFolder = randomBase % randomFolderRange;
             if(!randomlySelectedFolders.contains(objects[randomFolder])){
                 randomlySelectedFolders.append(objects[randomFolder]);
             }

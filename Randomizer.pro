@@ -31,7 +31,6 @@ SOURCES += \
     folderhistory.cpp \
     folderrandomizer.cpp \
     browseparameters.cpp \
-    gifplayer.cpp \
     settings.cpp \
     fonthandler.cpp \
     filecopyfunctions.cpp \
@@ -43,7 +42,6 @@ HEADERS += \
     folderhistory.h \
     folderrandomizer.h \
     browseparameters.h \
-    gifplayer.h \
     settings.h \
     fonthandler.h \
     filecopyfunctions.h \
