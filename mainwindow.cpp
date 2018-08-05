@@ -6,12 +6,12 @@
 #include "settings.h"
 #include "fonthandler.h"
 #include "filecopyfunctions.h"
-#include "movieplayerwidget.h"
 
 #include <QApplication>
 #include <QFileDialog>
 #include <QTextEdit>
 #include <QCheckBox>
+#include <QThread>  //allows sleep
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -126,4 +126,9 @@ void MainWindow::on_copyButton_clicked(){
     else{
         copier.fileCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
     }
+
+    QThread::sleep(1);
+
+    playMovie.playGif();
+    playMovie.show();
 }

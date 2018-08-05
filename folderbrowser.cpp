@@ -68,7 +68,7 @@ QStringList folderBrowser::getDirectories(browseParameters &browseParameters_, Q
 QStringList folderBrowser::getVideos(browseParameters &browseParameters_, QDir &currentPath){
     QStringList videoFileTypes;
     QStringList videosRetrieved;
-    videoFileTypes << "*ts" << "*.mp4" << "*.mkv" << "*.avi" << "*.rm";
+    videoFileTypes << "*.ts" << "*.mp4" << "*.mkv" << "*.avi" << "*.rm";
 
     currentPath.setFilter(QDir::Files);
     currentPath.setNameFilters(videoFileTypes);
@@ -95,7 +95,7 @@ QStringList folderBrowser::getVideos(browseParameters &browseParameters_, QDir &
 QStringList folderBrowser::getMusic(browseParameters &browseParameters_, QDir &currentPath){
     QStringList musicFileTypes;
     QStringList musicRetrieved;
-    musicFileTypes << "*mp3" << "*.m4a" << "*.ogg" << "*.wav" << "*.wma";
+    musicFileTypes << ".*mp3" << "*.m4a" << "*.ogg" << "*.wav" << "*.wma";
 
     currentPath.setFilter(QDir::Files);
     currentPath.setNameFilters(musicFileTypes);

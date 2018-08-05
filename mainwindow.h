@@ -3,11 +3,10 @@
 
 #include "browseparameters.h"
 #include "folderbrowser.h"
+#include "movieplayerwidget.h"
 
 #include <QMainWindow>
 #include <QStringList>
-
-#include "movieplayerwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +41,7 @@ private:
     browseParameters browseParameters_;
     folderBrowser browseFolder;
     QStringList listOfRandomObjects;
+    moviePlayerWidget playMovie;
 };
 
 #endif // MAINWINDOW_H

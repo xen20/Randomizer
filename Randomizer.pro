@@ -53,3 +53,15 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    gifs/03_003.gif \
+    gifs/122_gif_3.gif \
+    gifs/136_gif_5.gif \
+    gifs/42.gif \
+    gifs/56_ezgif_1_791a914460.gif \
+    gifs/81_07.gif \
+    gifs/85_11.gif \
+    gifs/86_12.gif \
+    gifs/93_19.gif \
+    gifs/95_21.gif

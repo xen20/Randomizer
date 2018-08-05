@@ -14,9 +14,13 @@ class moviePlayerWidget : public QWidget
 public:
     explicit moviePlayerWidget(QWidget *parent = nullptr);
     ~moviePlayerWidget();
+    void playGif(void);
 
 private:
+    QString selectedGif;
     Ui::moviePlayerWidget *ui;
+    QStringList readGifsInFolder();
+    void selectRandomGif(void);
 };
 
 #endif // MOVIEPLAYERWIDGET_H
