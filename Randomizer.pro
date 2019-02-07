@@ -25,27 +25,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    folderbrowser.cpp \
-    folderhistory.cpp \
-    folderrandomizer.cpp \
-    browseparameters.cpp \
-    settings.cpp \
-    fonthandler.cpp \
-    filecopyfunctions.cpp \
-    movieplayerwidget.cpp
+        src/main.cpp \
+        src/mainwindow.cpp \
+    src/folderbrowser.cpp \
+    src/folderhistory.cpp \
+    src/folderrandomizer.cpp \
+    src/browseparameters.cpp \
+    src/settings.cpp \
+    src/fonthandler.cpp \
+    src/filecopyfunctions.cpp \
+    src/movieplayerwidget.cpp
 
 HEADERS += \
-        mainwindow.h \
-    folderbrowser.h \
-    folderhistory.h \
-    folderrandomizer.h \
-    browseparameters.h \
-    settings.h \
-    fonthandler.h \
-    filecopyfunctions.h \
-    movieplayerwidget.h
+        src/mainwindow.h \
+    src/folderbrowser.h \
+    src/folderhistory.h \
+    src/folderrandomizer.h \
+    src/browseparameters.h \
+    src/settings.h \
+    src/fonthandler.h \
+    src/filecopyfunctions.h \
+    src/movieplayerwidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -53,15 +53,3 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
-
-DISTFILES += \
-    gifs/03_003.gif \
-    gifs/122_gif_3.gif \
-    gifs/136_gif_5.gif \
-    gifs/42.gif \
-    gifs/56_ezgif_1_791a914460.gif \
-    gifs/81_07.gif \
-    gifs/85_11.gif \
-    gifs/86_12.gif \
-    gifs/93_19.gif \
-    gifs/95_21.gif
