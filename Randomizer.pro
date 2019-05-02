@@ -8,8 +8,6 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-include(vendor/vendor.pri)
-
 TARGET = Randomizer
 TEMPLATE = app
 
@@ -25,8 +23,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        src/main.cpp \
-        src/mainwindow.cpp \
+    src/progressbar.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp \
     src/folderbrowser.cpp \
     src/folderhistory.cpp \
     src/folderrandomizer.cpp \
@@ -37,7 +36,8 @@ SOURCES += \
     src/movieplayerwidget.cpp
 
 HEADERS += \
-        src/mainwindow.h \
+    src/progressbar.h \
+    src/mainwindow.h \
     src/folderbrowser.h \
     src/folderhistory.h \
     src/folderrandomizer.h \
@@ -49,7 +49,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    movieplayerwidget.ui
+    movieplayerwidget.ui \
+    progressbar.ui
 
 RESOURCES += \
     resources.qrc

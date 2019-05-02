@@ -13,7 +13,7 @@ folderRandomizer::~folderRandomizer(){
 
 QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList objects){
 
-    int randomFolderRange = objects.length(); //0 to amount of folders in initial list
+    int randomFolderRange = objects.length(); // range is 0 to amount of folders in initial list
     QStringList randomlySelectedFolders;
 
     if((randomFolderRange == 0) || (numOfObjects == 0 )){

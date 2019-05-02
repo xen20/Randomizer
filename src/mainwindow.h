@@ -4,6 +4,7 @@
 #include "browseparameters.h"
 #include "folderbrowser.h"
 #include "movieplayerwidget.h"
+#include "progressbar.h"
 
 #include <QMainWindow>
 #include <QStringList>
@@ -32,7 +33,6 @@ private slots:
     void updateUiOnProgramStartup();
     void on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot);
     void on_browseForDestination_clicked();
-
     void on_copyButton_clicked();
 
 private:
@@ -42,6 +42,7 @@ private:
     folderBrowser browseFolder;
     QStringList listOfRandomObjects;
     moviePlayerWidget playMovie;
+    ProgressBar progressBar;
 };
 
 #endif // MAINWINDOW_H

@@ -11,12 +11,11 @@ public:
     folderBrowser();
     ~folderBrowser();
     QString getHomefolder();
-    QString getDocumentsfolder();
     QStringList folderContents(browseParameters &browseParameters_);
 private:
-    QStringList getDirectories(browseParameters &browseParameters_, QDir &currentPath);
-    QStringList getVideos(browseParameters &browseParameters_, QDir &currentPath);
-    QStringList getMusic(browseParameters &browseParameters_, QDir &currentPath);
+    QStringList returnDirectories(browseParameters &browseParameters_, QDir &currentPath);
+    QStringList getObjectType(browseParameters &browseParameters_);
+    QStringList returnObjects(browseParameters &browseParameters_, QDir &currentPath);
 };
 
 #endif // FOLDERBROWSER_H

@@ -18,6 +18,7 @@ public:
 
 private:
     QString selectedGif;
+    bool    gifExists;
     Ui::moviePlayerWidget *ui;
     QStringList readGifsInFolder();
     void selectRandomGif(void);

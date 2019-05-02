@@ -1,12 +1,17 @@
-#include <QtShell> //Not stock library, provided by bennylau & his QtShell lib as found on github
 #include <QRegularExpression>
+#include <QFile>
+#include <QApplication>
+
 
 #include "filecopyfunctions.h"
+#include "progressbar.h"
 
-fileCopyFunctions::fileCopyFunctions(){
+fileCopyFunctions::fileCopyFunctions(ProgressBar *widget){
+    copyProgress = 0;
     fileCopyIndex = 1;
     doesDuplicateFileExistInDest = false;
     doesDuplicateExistAfterAppendingIndex = false;
+    _widget = widget;
 }
 
 fileCopyFunctions::~fileCopyFunctions(){
@@ -38,26 +43,37 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
                     continue;
                 }
             }
-            QtShell::cp("-vR", sourceFiles[idx], destinationIfDuplicateExists);
-            fileCopyIndex = 1;
+            if(QFile::exists(sourceFiles[idx])){
+                QFile::copy(sourceFiles[idx], destinationIfDuplicateExists);
+                fileCopyIndex = 1;
+                ++copyProgress;
+                float totalProgess = ((float)copyProgress/sourceFiles.size())*100;
+                _widget->updateProgressBar(totalProgess, QFileInfo(sourceFiles[idx]).fileName());
+                qApp->processEvents();
+            }
         }
         else{
-            QtShell::cp("-vR", sourceFiles[idx], Destination);
+            if(QFile::exists(sourceFiles[idx])){
+                QFile::copy(sourceFiles[idx], Destination+"/"+QFileInfo(sourceFiles[idx]).fileName());
+                ++copyProgress;
+                float totalProgess = ((float)copyProgress/sourceFiles.size())*100;
+                _widget->updateProgressBar(totalProgess, QFileInfo(sourceFiles[idx]).fileName());
+                qApp->processEvents();
+            }
         }
     }
 }
 
 void fileCopyFunctions::folderCopy(QStringList sourceFiles, QString Destination){
     for(int idx = 0; idx < sourceFiles.count(); ++idx){
-        QtShell::cp("-vR", sourceFiles[idx], Destination);
     }
 }
 
 bool fileCopyFunctions::checkIfDuplicateFileExistsInDest(QString sourceFile, QString Destination_){
     bool doesDuplicateFileExistInDest_ = false;
 
-    doesDuplicateFileExistInDest_ =   QFileInfo::exists(Destination_+"/"+QtShell::basename(sourceFile)) && \
-                                      QFileInfo(Destination_+"/"+QtShell::basename(sourceFile)).isFile();
+    doesDuplicateFileExistInDest_ =   QFileInfo::exists(Destination_+"/"+QFileInfo(sourceFile).fileName()) && \
+            QFileInfo(Destination_+"/"+QFileInfo(sourceFile).fileName()).isFile();
 
     return doesDuplicateFileExistInDest_;
 }
@@ -66,14 +82,14 @@ bool fileCopyFunctions::checkIfDuplicateExistsAfterAppendingIndex(){
     bool doesDuplicateExistAfterAppendingIndex_ = false;
 
     doesDuplicateExistAfterAppendingIndex_ = QFileInfo::exists(destinationIfDuplicateExists) && \
-                                                QFileInfo(destinationIfDuplicateExists).isFile();
+            QFileInfo(destinationIfDuplicateExists).isFile();
 
     return doesDuplicateExistAfterAppendingIndex_;
 }
 
 QString fileCopyFunctions::handleDuplicateFileName(QString sourceFile, QString Destination_){
     QString destinationIfDuplicateExists_;
-    fileNameAfterSplit = QtShell::basename(sourceFile).split(".");
+    fileNameAfterSplit = QFileInfo(sourceFile).fileName().split(".");
 
     fileNameIfDuplicateExists = fileNameAfterSplit.join("-"+QString::number(fileCopyIndex)+".");
     destinationIfDuplicateExists_ = Destination_+"/"+fileNameIfDuplicateExists;

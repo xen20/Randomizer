@@ -3,16 +3,17 @@
 #include "folderrandomizer.h"
 
 #include <QLabel>
-#include <QMovie> //also includes QImage
+#include <QMovie>
 #include <QCoreApplication>
 #include <QDirIterator>
+#include <QException>
 
 moviePlayerWidget::moviePlayerWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::moviePlayerWidget)
 {
+    gifExists = false;
     ui->setupUi(this);
-
 }
 
 moviePlayerWidget::~moviePlayerWidget()
@@ -26,12 +27,18 @@ void moviePlayerWidget::selectRandomGif(){
     QStringList randomGif;
 
     randomGif = randomize.returnRandomObjects(1, gifsInFolder);
+    if (randomGif.length() > 0){
+        selectedGif = randomGif[0];
+        gifExists = true;
+    }
+    else {
+        gifExists = false;
+    }
 
-    selectedGif = randomGif[0];
 }
 
 QStringList moviePlayerWidget::readGifsInFolder(){
-    QDir gifFolderPath("/home/xen20/Documents/Randomizer/gifs");
+    QDir gifFolderPath(QApplication::applicationDirPath()+"/gifs");
 
     QStringList gifType;
     QStringList gifsRetrieved;
@@ -40,25 +47,26 @@ QStringList moviePlayerWidget::readGifsInFolder(){
     gifFolderPath.setFilter(QDir::Files);
     gifFolderPath.setNameFilters(gifType);
 
-        QDirIterator iter(gifFolderPath, QDirIterator::Subdirectories);
+    QDirIterator iter(gifFolderPath, QDirIterator::Subdirectories);
 
-        while(iter.hasNext()){
-            gifsRetrieved << iter.next();
-        }
+    while(iter.hasNext()){
+        gifsRetrieved << iter.next();
+    }
 
     return gifsRetrieved;
 }
 
 void moviePlayerWidget::playGif(){
-
     this->selectRandomGif();
-    QLabel *moviePlayerLabel = new QLabel(this);
-    QMovie *movie = new QMovie(selectedGif);
-    QImage *retrieveMovieParameters = new QImage(selectedGif);
+    if (gifExists){
+        QLabel *moviePlayerLabel = new QLabel(this);
+        QMovie *movie = new QMovie(selectedGif);
+        QImage *retrieveMovieParameters = new QImage(selectedGif);
 
-    QSize movieWidthAndHeight = retrieveMovieParameters->size();
+        QSize movieWidthAndHeight = retrieveMovieParameters->size();
 
-    this->setFixedSize(movieWidthAndHeight);
-    moviePlayerLabel->setMovie(movie);
-    movie->start();
+        this->setFixedSize(movieWidthAndHeight);
+        moviePlayerLabel->setMovie(movie);
+        movie->start();
+    }
 }

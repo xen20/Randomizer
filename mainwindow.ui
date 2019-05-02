@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>622</width>
+    <width>626</width>
     <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Randomizer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="foldergenButton">
@@ -195,6 +195,11 @@
       <string>Music</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Images</string>
+     </property>
+    </item>
    </widget>
    <widget class="QCheckBox" name="subdirectoriesCheckBox">
     <property name="geometry">
@@ -288,8 +293,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>622</width>
-     <height>25</height>
+     <width>626</width>
+     <height>24</height>
     </rect>
    </property>
   </widget>

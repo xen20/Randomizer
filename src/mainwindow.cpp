@@ -6,6 +6,7 @@
 #include "settings.h"
 #include "fonthandler.h"
 #include "filecopyfunctions.h"
+#include "progressbar.h"
 
 #include <QApplication>
 #include <QFileDialog>
@@ -119,7 +120,9 @@ void MainWindow::on_browseForDestination_clicked(){
 }
 
 void MainWindow::on_copyButton_clicked(){
-    fileCopyFunctions copier;
+    progressBar.move(this->rect().center() - progressBar.rect().center());
+    progressBar.show();
+    fileCopyFunctions copier(&progressBar);
     if(browseParameters_.objectType == "Directories"){
         copier.folderCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
     }
@@ -127,8 +130,8 @@ void MainWindow::on_copyButton_clicked(){
         copier.fileCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
     }
 
-    QThread::sleep(1);
+    progressBar.close();
 
-    playMovie.playGif();
-    playMovie.show();
+    //playMovie.playGif();
+    //playMovie.show();
 }
