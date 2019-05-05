@@ -23,6 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/messagedialog.cpp \
     src/progressbar.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
     src/movieplayerwidget.cpp
 
 HEADERS += \
+    src/messagedialog.h \
     src/progressbar.h \
     src/mainwindow.h \
     src/folderbrowser.h \
@@ -48,7 +50,8 @@ HEADERS += \
     src/movieplayerwidget.h
 
 FORMS += \
-        mainwindow.ui \
+    mainwindow.ui \
+    messagedialog.ui \
     movieplayerwidget.ui \
     progressbar.ui
 

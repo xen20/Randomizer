@@ -6,7 +6,6 @@
 #include "settings.h"
 #include "fonthandler.h"
 #include "filecopyfunctions.h"
-#include "progressbar.h"
 
 #include <QApplication>
 #include <QFileDialog>
@@ -59,7 +58,7 @@ void MainWindow::on_foldergenButton_clicked(){
     listOfRandomObjects = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
 
     for(int index = 0; index < listOfRandomObjects.size(); index++){
-        ui->selectedObjects->append(listOfRandomObjects[index]);
+        ui->selectedObjects->append(QString::number(index)+" "+listOfRandomObjects[index]);
     }
 
     getHistory.writeHistory(listOfRandomObjects);
@@ -120,8 +119,9 @@ void MainWindow::on_browseForDestination_clicked(){
 }
 
 void MainWindow::on_copyButton_clicked(){
+
     progressBar.move(this->rect().center() - progressBar.rect().center());
-    progressBar.show();
+
     fileCopyFunctions copier(&progressBar);
     if(browseParameters_.objectType == "Directories"){
         copier.folderCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);

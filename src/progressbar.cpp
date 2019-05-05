@@ -8,6 +8,7 @@ ProgressBar::ProgressBar(QWidget *parent) :
     ui->setupUi(this);
     ui->progressBar->reset();
     ui->progressBar->setRange(0,100);
+    ui->progressBar->setValue(0);
 
 }
 

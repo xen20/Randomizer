@@ -13,30 +13,23 @@ folderRandomizer::~folderRandomizer(){
 
 QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList objects){
 
-    int randomFolderRange = objects.length(); // range is 0 to amount of folders in initial list
+    int randomObjectMax = objects.length(); // range is 0 to amount of folders in initial list
     QStringList randomlySelectedFolders;
 
-    if((randomFolderRange == 0) || (numOfObjects == 0 )){
-        randomlySelectedFolders.clear();
-        return randomlySelectedFolders;
+    if((randomObjectMax == 0) || (numOfObjects == 0 )){
+        qDebug("There are no objects to return");
     }
     else{
-        for(int idx = 0; idx < numOfObjects; ++idx){
-            quint32 randomBase = QRandomGenerator::global()->generate();
-            int randomFolder = randomBase % randomFolderRange;
+        if(numOfObjects > objects.length()) numOfObjects = objects.length();
+
+        while(randomlySelectedFolders.length() != numOfObjects){
+            quint32 randomBase = QRandomGenerator::global()->bounded(0, randomObjectMax);
+            int randomFolder = randomBase % randomObjectMax;
             if(!randomlySelectedFolders.contains(objects[randomFolder])){
                 randomlySelectedFolders.append(objects[randomFolder]);
             }
-            else if(objects.length() % numOfObjects){
-                break;
-            }
-            else{
-                --idx;
-                continue;
-            }
         }
-        return randomlySelectedFolders;
-
-        randomlySelectedFolders.clear();
     }
+
+    return randomlySelectedFolders;
 }
