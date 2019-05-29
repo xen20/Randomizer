@@ -132,6 +132,6 @@ void MainWindow::on_copyButton_clicked(){
 
     progressBar.close();
 
-    //playMovie.playGif();
-    //playMovie.show();
+    playMovie.playGif();
+    playMovie.show();
 }

@@ -1,6 +1,8 @@
 #include "movieplayerwidget.h"
 #include "ui_movieplayerwidget.h"
 #include "folderrandomizer.h"
+#include "folderbrowser.h"
+#include "browseparameters.h"
 
 #include <QLabel>
 #include <QMovie>
@@ -38,20 +40,14 @@ void moviePlayerWidget::selectRandomGif(){
 }
 
 QStringList moviePlayerWidget::readGifsInFolder(){
-    QDir gifFolderPath(QApplication::applicationDirPath()+"/gifs");
+    QDir FolderPath(QApplication::applicationDirPath()+"/gifs");
 
-    QStringList gifType;
     QStringList gifsRetrieved;
-    gifType << "*.gif";
+    browseParameters parameters;
+    parameters.objectType = "Gifs";
+    folderBrowser browse;
 
-    gifFolderPath.setFilter(QDir::Files);
-    gifFolderPath.setNameFilters(gifType);
-
-    QDirIterator iter(gifFolderPath, QDirIterator::Subdirectories);
-
-    while(iter.hasNext()){
-        gifsRetrieved << iter.next();
-    }
+    gifsRetrieved = browse.returnObjects(parameters, FolderPath);
 
     return gifsRetrieved;
 }

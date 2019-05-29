@@ -62,7 +62,7 @@ QStringList folderBrowser::returnObjects(browseParameters &browseParameters_, QD
     QStringList objectFileTypes;
     QStringList objectsRetrieved;
 
-    objectFileTypes = this->getObjectType(browseParameters_);
+    objectFileTypes = browseParameters_.getFileExtensions(browseParameters_.objectType);
 
     currentPath.setFilter(QDir::Files);
     currentPath.setNameFilters(objectFileTypes);
@@ -83,21 +83,4 @@ QStringList folderBrowser::returnObjects(browseParameters &browseParameters_, QD
     }
 
     return objectsRetrieved;
-}
-
-QStringList folderBrowser::getObjectType(browseParameters &browseParameters_){
-
-    QStringList objectFileTypes;
-
-    if(browseParameters_.objectType == "Videos"){
-        objectFileTypes << "*.ts" << "*.mp4" << "*.mkv" << "*.avi" << "*.rm" << "*.webm" << "*.flv";
-    }
-    else if (browseParameters_.objectType == "Music") {
-        objectFileTypes << ".*mp3" << "*.m4a" << "*.ogg" << "*.wav" << "*.wma" << "*.flac";
-    }
-    else if (browseParameters_.objectType == "Images") {
-        objectFileTypes << ".*jpeg" << "*.jpg" << "*.png" << "*.bmp";
-    }
-
-    return objectFileTypes;
 }

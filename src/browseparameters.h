@@ -1,8 +1,7 @@
 #ifndef BROWSEPARAMETERS_H
 #define BROWSEPARAMETERS_H
 
-#include <QString>
-
+#include <QStringList>
 
 class browseParameters
 {
@@ -14,6 +13,9 @@ public:
     QString objectType;
     int  objectCount;
     bool recursiveOrNot;
+    QStringList getFileExtensions(QString fileType);
+private:
+    QStringList fileExtensions;
 };
 
 #endif // BROWSEPARAMETERS_H
