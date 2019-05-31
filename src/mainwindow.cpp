@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     currentContents = browseFolder.folderContents(browseParameters_);
 
     fontHandler chooseFontAndSize;
-    chooseFontAndSize.setGlobalFont("Cantarell-Regular", 12);
+    chooseFontAndSize.setGlobalFont("Cantarell-Regular.ttf", 12);
 
     ui->setupUi(this);
     this->updateUiOnProgramStartup();
@@ -53,7 +53,7 @@ void MainWindow::on_foldergenButton_clicked(){
 
     getHistory.readHistory();
     QStringList currentList = getHistory.compareNewAndOldFolders();
-    folderRandomizer getRandomFolders;
+    folderRandomizer getRandomFolders(&messageDialog);
 
     listOfRandomObjects = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
 
@@ -122,7 +122,7 @@ void MainWindow::on_copyButton_clicked(){
 
     progressBar.move(this->rect().center() - progressBar.rect().center());
 
-    fileCopyFunctions copier(&progressBar);
+    fileCopyFunctions copier(&progressBar, &messageDialog);
     if(browseParameters_.objectType == "Directories"){
         copier.folderCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
     }

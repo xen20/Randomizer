@@ -16,6 +16,9 @@ public:
     void displayErrorMessage(QString message);
     ~MessageDialog();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MessageDialog *ui;
 };

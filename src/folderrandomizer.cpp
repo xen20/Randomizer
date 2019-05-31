@@ -4,11 +4,15 @@
 
 folderRandomizer::folderRandomizer()
 {
-    //ctor
+    //default ctor
+    _messageDialogWidget = NULL;
+}
+
+folderRandomizer::folderRandomizer(MessageDialog *messageDialogWidget){
+    _messageDialogWidget = messageDialogWidget;
 }
 
 folderRandomizer::~folderRandomizer(){
-    //dtor
 }
 
 QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList objects){
@@ -17,7 +21,7 @@ QStringList folderRandomizer::returnRandomObjects(int numOfObjects, QStringList 
     QStringList randomlySelectedFolders;
 
     if((randomObjectMax == 0) || (numOfObjects == 0 )){
-        qDebug("There are no objects to return");
+        _messageDialogWidget->displayErrorMessage("There are no objects to randomize, choose another source directory.");
     }
     else{
         if(numOfObjects > objects.length()) numOfObjects = objects.length();

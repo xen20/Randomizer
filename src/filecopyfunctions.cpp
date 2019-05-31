@@ -4,14 +4,14 @@
 
 
 #include "filecopyfunctions.h"
-#include "progressbar.h"
 
-fileCopyFunctions::fileCopyFunctions(ProgressBar *widget){
+fileCopyFunctions::fileCopyFunctions(ProgressBar *progressBarWidget, MessageDialog *messageDialogWidget){
     copyProgress = 0;
     fileCopyIndex = 1;
     doesDuplicateFileExistInDest = false;
     doesDuplicateExistAfterAppendingIndex = false;
-    _widget = widget;
+    _progressBarWidget = progressBarWidget;
+    _messageDialogWidget = messageDialogWidget;
 }
 
 fileCopyFunctions::~fileCopyFunctions(){
@@ -47,8 +47,8 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
                 QFile::copy(sourceFiles[idx], destinationIfDuplicateExists);
                 fileCopyIndex = 1;
                 ++copyProgress;
-                float totalProgess = ((float)copyProgress/sourceFiles.size())*100;
-                _widget->updateProgressBar(totalProgess, QFileInfo(sourceFiles[idx]).fileName());
+                float totalProgess = ((float)copyProgress/sourceFiles.size())*100; // Cast to force float division
+                _progressBarWidget->updateProgressBar(totalProgess, QFileInfo(sourceFiles[idx]).fileName());
                 qApp->processEvents();
             }
         }
@@ -57,7 +57,7 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
                 QFile::copy(sourceFiles[idx], Destination+"/"+QFileInfo(sourceFiles[idx]).fileName());
                 ++copyProgress;
                 float totalProgess = ((float)copyProgress/sourceFiles.size())*100;
-                _widget->updateProgressBar(totalProgess, QFileInfo(sourceFiles[idx]).fileName());
+                _progressBarWidget->updateProgressBar(totalProgess, QFileInfo(sourceFiles[idx]).fileName());
                 qApp->processEvents();
             }
         }
@@ -65,6 +65,7 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
 }
 
 void fileCopyFunctions::folderCopy(QStringList sourceFiles, QString Destination){
+    //WIP
     for(int idx = 0; idx < sourceFiles.count(); ++idx){
     }
 }

@@ -4,11 +4,12 @@
 #include <QStringList>
 #include <QFileInfo>
 #include "progressbar.h"
+#include "messagedialog.h"
 
 class fileCopyFunctions
 {
 public:
-    fileCopyFunctions(ProgressBar *widget);
+    fileCopyFunctions(ProgressBar *progressBarWidget, MessageDialog *messageDialogWidget);
     ~fileCopyFunctions();
     void fileCopy(QStringList sourceFiles, QString Destination);
     void folderCopy(QStringList sourceFiles, QString Destination);
@@ -27,7 +28,8 @@ private:
     QString destinationIfDuplicateExists;
     bool doesDuplicateFileExistInDest;
     bool doesDuplicateExistAfterAppendingIndex;
-    ProgressBar *_widget;
+    ProgressBar *_progressBarWidget;
+    MessageDialog *_messageDialogWidget;
     /*in use by fileCopy function*/
 
 };

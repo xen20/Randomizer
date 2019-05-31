@@ -17,3 +17,8 @@ void MessageDialog::displayErrorMessage(QString message){
     ui->label->setText(message);
     this->show();
 }
+
+void MessageDialog::on_pushButton_clicked()
+{
+    this->close();
+}

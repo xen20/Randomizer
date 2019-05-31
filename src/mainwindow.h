@@ -5,6 +5,7 @@
 #include "folderbrowser.h"
 #include "movieplayerwidget.h"
 #include "progressbar.h"
+#include "messagedialog.h"
 
 #include <QMainWindow>
 #include <QStringList>
@@ -43,6 +44,7 @@ private:
     QStringList listOfRandomObjects;
     moviePlayerWidget playMovie;
     ProgressBar progressBar;
+    MessageDialog messageDialog;
 };
 
 #endif // MAINWINDOW_H
