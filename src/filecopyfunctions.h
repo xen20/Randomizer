@@ -12,7 +12,7 @@ public:
     fileCopyFunctions(ProgressBar *progressBarWidget, MessageDialog *messageDialogWidget);
     ~fileCopyFunctions();
     void fileCopy(QStringList sourceFiles, QString Destination);
-    void folderCopy(QStringList sourceFiles, QString Destination);
+    void folderCopy(QStringList sourceFiles, QString Source, QString Destination);
 
 private:
     void updateFileCopyIndex();

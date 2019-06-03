@@ -6,9 +6,6 @@
 
 #include <QLabel>
 #include <QMovie>
-#include <QCoreApplication>
-#include <QDirIterator>
-#include <QException>
 
 moviePlayerWidget::moviePlayerWidget(QWidget *parent) :
     QWidget(parent),
@@ -24,12 +21,14 @@ moviePlayerWidget::~moviePlayerWidget()
 }
 
 void moviePlayerWidget::selectRandomGif(){
+
     folderRandomizer randomize;
     QStringList gifsInFolder = this->readGifsInFolder();
+
     QStringList randomGif;
 
-    randomGif = randomize.returnRandomObjects(1, gifsInFolder);
-    if (randomGif.length() > 0){
+    if(gifsInFolder.length() > 0 ){
+        randomGif = randomize.returnRandomObjects(1, gifsInFolder);
         selectedGif = randomGif[0];
         gifExists = true;
     }
@@ -40,20 +39,29 @@ void moviePlayerWidget::selectRandomGif(){
 }
 
 QStringList moviePlayerWidget::readGifsInFolder(){
+
     QDir FolderPath(QApplication::applicationDirPath()+"/gifs");
-
     QStringList gifsRetrieved;
-    browseParameters parameters;
-    parameters.objectType = "Gifs";
-    folderBrowser browse;
 
-    gifsRetrieved = browse.returnObjects(parameters, FolderPath);
+    if (FolderPath.exists()){
 
-    return gifsRetrieved;
+        browseParameters parameters;
+        parameters.objectType = "Gifs";
+        folderBrowser browse;
+
+        gifsRetrieved = browse.returnObjects(parameters, FolderPath);
+
+        return gifsRetrieved;
+    }
+    else {
+        return gifsRetrieved;
+    }
 }
 
-void moviePlayerWidget::playGif(){
+bool moviePlayerWidget::attemptPlayGif(){
+
     this->selectRandomGif();
+    bool playOrNot = false;
     if (gifExists){
         QLabel *moviePlayerLabel = new QLabel(this);
         QMovie *movie = new QMovie(selectedGif);
@@ -64,5 +72,9 @@ void moviePlayerWidget::playGif(){
         this->setFixedSize(movieWidthAndHeight);
         moviePlayerLabel->setMovie(movie);
         movie->start();
+
+        playOrNot = true;
     }
+
+    return playOrNot;
 }

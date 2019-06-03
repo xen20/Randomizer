@@ -12,6 +12,7 @@
 #include <QTextEdit>
 #include <QCheckBox>
 #include <QThread>  //allows sleep
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     currentContents = browseFolder.folderContents(browseParameters_);
 
     fontHandler chooseFontAndSize;
-    chooseFontAndSize.setGlobalFont("Cantarell-Regular.ttf", 12);
+    chooseFontAndSize.setGlobalFont("Cantarell-Regular", 12);
 
     ui->setupUi(this);
     this->updateUiOnProgramStartup();
@@ -57,8 +58,10 @@ void MainWindow::on_foldergenButton_clicked(){
 
     listOfRandomObjects = getRandomFolders.returnRandomObjects(browseParameters_.objectCount,currentList);
 
+    ui->selectedObjects->clear(); // Get rid of previously generated object data
+
     for(int index = 0; index < listOfRandomObjects.size(); index++){
-        ui->selectedObjects->append(QString::number(index)+" "+listOfRandomObjects[index]);
+        ui->selectedObjects->append(QString::number(index+1)+" "+listOfRandomObjects[index]);
     }
 
     getHistory.writeHistory(listOfRandomObjects);
@@ -67,9 +70,11 @@ void MainWindow::on_foldergenButton_clicked(){
 void MainWindow::on_clearFolderHistory_clicked(){
 
     folderHistory clearHistory;
-    clearHistory.clearHistory();
 
-    ui->selectedObjects->clear();
+    if(this->deleteOrKeep()){
+        clearHistory.clearHistory();
+        ui->selectedObjects->clear();
+    }
 }
 
 void MainWindow::on_exitButton_released(){
@@ -121,10 +126,11 @@ void MainWindow::on_browseForDestination_clicked(){
 void MainWindow::on_copyButton_clicked(){
 
     progressBar.move(this->rect().center() - progressBar.rect().center());
+    progressBar.show();
 
     fileCopyFunctions copier(&progressBar, &messageDialog);
     if(browseParameters_.objectType == "Directories"){
-        copier.folderCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
+        copier.folderCopy(listOfRandomObjects, browseParameters_.selectedDirectory, browseParameters_.copyTargetDirectory);
     }
     else{
         copier.fileCopy(listOfRandomObjects, browseParameters_.copyTargetDirectory);
@@ -132,6 +138,21 @@ void MainWindow::on_copyButton_clicked(){
 
     progressBar.close();
 
-    playMovie.playGif();
-    playMovie.show();
+    if (playMovie.attemptPlayGif()) playMovie.show();
+}
+
+bool MainWindow::deleteOrKeep(){
+
+    //Check out changing button styles dynamically here...
+    QMessageBox::StandardButton reply;
+    bool result;
+    reply = QMessageBox::question(this, "", "Delete result history?",
+                                  QMessageBox::No|QMessageBox::Yes);
+    if (reply == QMessageBox::Yes) {
+      result = true;
+    } else {
+      result = false;
+    }
+
+    return result;
 }

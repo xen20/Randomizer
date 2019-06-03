@@ -14,7 +14,7 @@ class moviePlayerWidget : public QWidget
 public:
     explicit moviePlayerWidget(QWidget *parent = nullptr);
     ~moviePlayerWidget();
-    void playGif(void);
+    bool attemptPlayGif(void);
 
 private:
     QString selectedGif;

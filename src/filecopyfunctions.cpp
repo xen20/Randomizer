@@ -2,6 +2,9 @@
 #include <QFile>
 #include <QApplication>
 
+#include <QDir>
+#include <QDirIterator>
+#include <QDebug>
 
 #include "filecopyfunctions.h"
 
@@ -64,11 +67,40 @@ void fileCopyFunctions::fileCopy(QStringList sourceFiles, QString Destination){
     }
 }
 
-void fileCopyFunctions::folderCopy(QStringList sourceFiles, QString Destination){
-    //WIP
+void fileCopyFunctions::folderCopy(QStringList sourceFiles, QString Source, QString Destination){
+
     for(int idx = 0; idx < sourceFiles.count(); ++idx){
+
+        // Get single dir
+        // Get all files within selected single dir
+        // iterate over files: one by one, copy files to dest using this->fileCopy
+        // perhaps copy by relative path
+
+        QFileInfoList filesInFolder;
+        QFileInfo singleFile;
+
+        QDir currentDir(sourceFiles[idx]);
+        QDir sourceDir(Source);
+        currentDir.setFilter( QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+
+        QString sourceDirName =  sourceDir.dirName();
+
+        QDirIterator iter(currentDir, QDirIterator::Subdirectories);
+
+        while(iter.hasNext()){
+            filesInFolder << iter.next();
+        }
+
+        while(!filesInFolder.isEmpty()){
+            singleFile = filesInFolder.takeFirst();
+            QString spath = singleFile.filePath();
+            currentDir.cd(Destination) ;
+            currentDir.mkdir(sourceDirName) ;
+            currentDir.cd(sourceDirName);
+        }
     }
 }
+
 
 bool fileCopyFunctions::checkIfDuplicateFileExistsInDest(QString sourceFile, QString Destination_){
     bool doesDuplicateFileExistInDest_ = false;

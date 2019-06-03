@@ -31,13 +31,14 @@ private slots:
     void on_exitButton_released();
     void on_spinBox_valueChanged(int value);
     void on_objectTypeComboBox_activated(const QString &objectType);
-    void updateUiOnProgramStartup();
     void on_subdirectoriesCheckBox_toggled(bool checkBoxCheckedOrNot);
     void on_browseForDestination_clicked();
     void on_copyButton_clicked();
 
 private:
     Ui::MainWindow *ui;
+    void updateUiOnProgramStartup();
+    bool deleteOrKeep();
     QStringList currentContents;
     browseParameters browseParameters_;
     folderBrowser browseFolder;
