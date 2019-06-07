@@ -13,6 +13,7 @@
 #include <QCheckBox>
 #include <QThread>  //allows sleep
 #include <QMessageBox>
+//#include <QLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseFontAndSize.setGlobalFont("Cantarell-Regular", 12);
 
     ui->setupUi(this);
+    //this->layout()->setSizeConstraint(QLayout::SetFixedSize);
+    //this->setWindowFlags(Qt::Widget | Qt::MSWindowsFixedSizeDialogHint); // tested only on windows so far
     this->updateUiOnProgramStartup();
 
 }
